@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E329FA81CEFA599002A43BE /* ExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E329FA71CEFA599002A43BE /* ExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3ED097CF1DCEA1CD00B8714E /* Shram.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED097CE1DCEA1CC00B8714E /* Shram.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3ED097F11DCEA49A00B8714E /* Shram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D01DCEA1E100B8714E /* Shram.swift */; };
 		3ED097F21DCEA49A00B8714E /* ShramDataTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D11DCEA1E100B8714E /* ShramDataTaskService.swift */; };
@@ -20,11 +19,11 @@
 		3ED097F91DCEA49A00B8714E /* ShramRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D81DCEA1E100B8714E /* ShramRequest.swift */; };
 		3ED097FA1DCEA49A00B8714E /* ShramResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D91DCEA1E100B8714E /* ShramResponse.swift */; };
 		3ED0981C1DCEB02D00B8714E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0981B1DCEB02D00B8714E /* README.md */; };
+		3ED098921DCF84CC00B8714E /* ExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED098911DCF84CC00B8714E /* ExceptionHandler.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		18F904791C7E243D00FA7B6B /* Shram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E329FA71CEFA599002A43BE /* ExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionHandler.h; sourceTree = "<group>"; };
 		3ED097CE1DCEA1CC00B8714E /* Shram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shram.h; path = Shram/Shram.h; sourceTree = "<group>"; };
 		3ED097D01DCEA1E100B8714E /* Shram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shram.swift; path = Shram/Shram.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D11DCEA1E100B8714E /* ShramDataTaskService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramDataTaskService.swift; path = Shram/ShramDataTaskService.swift; sourceTree = SOURCE_ROOT; };
@@ -38,6 +37,7 @@
 		3ED097D91DCEA1E100B8714E /* ShramResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramResponse.swift; path = Shram/ShramResponse.swift; sourceTree = SOURCE_ROOT; };
 		3ED097E41DCEA21500B8714E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Shram/Info.plist; sourceTree = "<group>"; };
 		3ED0981B1DCEB02D00B8714E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3ED098911DCF84CC00B8714E /* ExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionHandler.h; path = Shram/ExceptionHandler.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,6 @@
 			children = (
 				3ED0981B1DCEB02D00B8714E /* README.md */,
 				3ED097E41DCEA21500B8714E /* Info.plist */,
-				3E329FA71CEFA599002A43BE /* ExceptionHandler.h */,
 				3ED097CE1DCEA1CC00B8714E /* Shram.h */,
 				18F9047B1C7E243D00FA7B6B /* Shram */,
 				18F9047A1C7E243D00FA7B6B /* Products */,
@@ -74,6 +73,7 @@
 		18F9047B1C7E243D00FA7B6B /* Shram */ = {
 			isa = PBXGroup;
 			children = (
+				3ED098911DCF84CC00B8714E /* ExceptionHandler.h */,
 				3ED097D01DCEA1E100B8714E /* Shram.swift */,
 				3ED097D11DCEA1E100B8714E /* ShramDataTaskService.swift */,
 				3ED097D21DCEA1E100B8714E /* ShramExtensions.swift */,
@@ -97,7 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ED097CF1DCEA1CD00B8714E /* Shram.h in Headers */,
-				3E329FA81CEFA599002A43BE /* ExceptionHandler.h in Headers */,
+				3ED098921DCF84CC00B8714E /* ExceptionHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
