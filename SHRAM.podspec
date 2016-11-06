@@ -30,13 +30,6 @@ Shram - is easy to use but powerful framework for communication with RESTful web
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'SHRAM/Classes/**/*'
+  s.source_files = 'SHRAM/*'
   
-  # s.resource_bundles = {
-  #   'SHRAM' => ['SHRAM/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
