@@ -5,7 +5,9 @@ Shram - is easy to use but powerful framework for communication with RESTful web
 
 ## **Supported platforms** ##
 - IOS
+
 ## **How to install** ##
+Using cocoapods you need to write ``` pod ’Shram’, '0.1.0’ ``` in you podfile
 
 ## **How it works** ##
 As mentioned above Shram is very simple to use. Let's sort it out.
