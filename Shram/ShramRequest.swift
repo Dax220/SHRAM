@@ -278,7 +278,7 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
     //MARK: - Setting request parameters
     fileprivate mutating func setParametersWithContentType() {
     
-        guard let cType = _contentType, _params != nil else {
+        guard let cType = _contentType else {
             return
         }
         
@@ -356,6 +356,8 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
     }
     
     fileprivate func fillPOSTData(_ body: NSMutableData) {
+        
+        guard _params != nil else { return }
         
         for (key, value) in _params! {
             setBoundary(toBody: body)
