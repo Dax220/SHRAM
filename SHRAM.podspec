@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'SHRAM'
+  s.name             = 'Shram'
   s.version          = '0.1.1'
   s.summary          = 'Simple Http Requests And Mapping'
 
