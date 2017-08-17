@@ -2,17 +2,16 @@ import Foundation
 
 open class SHResponse {
     
-    public var JSON: Any? {
+    public var JSON: JSON? {
         
         get {
-            switch _JSON {
-            case _ as [Any]:
-                return _JSON as! [Any]
-            case _ as [String : Any]:
-                return _JSON as! [String : Any]
-            default:
-                return _JSON
+            
+            if let json = _JSON {
+                return json
             }
+            
+            dataToJSON(data, parseKeys: parseKeys)
+            return _JSON
         }
     }
     
@@ -23,14 +22,17 @@ open class SHResponse {
         }
     }
     
-    fileprivate var _JSON: Any?
+    fileprivate var _JSON: JSON?
     
     fileprivate let response: URLResponse?
+    fileprivate let parseKeys: [String]?
+    fileprivate let data: Data?
     
     init(data: Data? = nil, response: URLResponse?, parseKeys: [String]? = nil) {
         
         self.response = response
-        dataToJSON(data, parseKeys: parseKeys)
+        self.parseKeys = parseKeys
+        self.data = data
     }
     
     internal func dataToJSON(_ incomingData: Data?, parseKeys: [String]?) {
@@ -43,7 +45,7 @@ open class SHResponse {
             return
         }
         
-        _JSON = json as AnyObject?
+        _JSON = json
         
         guard let pKeys = parseKeys else {
             return
@@ -51,9 +53,9 @@ open class SHResponse {
         
         for key in pKeys {
             
-            if let JSONPart = (_JSON as AnyObject)[key] {
+            if _JSON![key].exists() {
                 
-                _JSON = JSONPart
+                _JSON = _JSON?[key]
                 
             } else {
                 
