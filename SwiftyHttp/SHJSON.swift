@@ -1,8 +1,8 @@
 import Foundation
 
-public let ShramJSON = ShramJSONManager()
+public let SHJSON = SHJSONJSONManager()
 
-open class ShramJSONManager {
+open class SHJSONJSONManager {
     
     open func createJSONData(fromObject object: AnyObject) -> Data? {
         
@@ -11,7 +11,7 @@ open class ShramJSONManager {
             jsonData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted)
         }
         catch let error as NSError {
-            NSLog("JSON error = \(error)")//TODO: Add to Shram Errors
+            NSLog("JSON error = \(error)")//TODO: Add to Errors
         }
         return jsonData
     }
@@ -61,7 +61,7 @@ open class ShramJSONManager {
         }
         catch let error {
             
-            NSLog("JSON error = \(error)")//TODO: Add to Shram Errors
+            NSLog("JSON error = \(error)")//TODO: Add to Errors
         }
         
         return JSONObject

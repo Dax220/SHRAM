@@ -5,13 +5,13 @@ import Foundation
     import CoreServices
 #endif
 
-internal class ShramMIMETypesService {
+internal class SHMIMETypesService {
     
-    static let shramMimeType = ShramMIMETypesService()
+    static let shMimeType = SHMIMETypesService()
     
-    static func sharedInstance() -> ShramMIMETypesService {
+    static func sharedInstance() -> SHMIMETypesService {
         
-        return shramMimeType
+        return shMimeType
     }
     
     internal func mimeTypeForURL(_ fileURL: URL) -> String {

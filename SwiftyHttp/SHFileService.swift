@@ -1,8 +1,8 @@
 import Foundation
 
-let ShramFileManager = ShramFileService()
+let SHFileManager = SHFileService()
 
-internal class ShramFileService: FileManager {
+internal class SHFileService: FileManager {
     
     internal func checkPathForResource(_ pathForResource: AnyObject) -> String? {
         
