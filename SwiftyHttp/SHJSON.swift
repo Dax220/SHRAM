@@ -1,28 +1,27 @@
 import Foundation
 
-public let ShramJSON = ShramJSONManager()
+public let SHJSON = SHJSONJSONManager()
 
-open class ShramJSONManager
-{
-    open func createJSONData(fromObject object: AnyObject) -> Data?
-    {
+open class SHJSONJSONManager {
+    
+    open func createJSONData(fromObject object: AnyObject) -> Data? {
+        
         var jsonData: Data?
-        do
-        {
+        do {
             jsonData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted)
         }
-        catch let error as NSError
-        {
-            NSLog("JSON error = \(error)")//TODO: Add to Shram Errors
+        catch let error as NSError {
+            NSLog("JSON error = \(error)")//TODO: Add to Errors
         }
         return jsonData
     }
     
-    open func createJSONObject(fromObject object: AnyObject) -> [String : AnyObject]
-    {
+    open func createJSONObject(fromObject object: AnyObject) -> [String : AnyObject] {
+        
         var JSON = [String : AnyObject]()
-        switch object
-        {
+        
+        switch object {
+            
         case is [AnyObject]:
             
             parseArray(array: object as! [AnyObject], parentKey: "", toJSON: &JSON)
@@ -34,40 +33,48 @@ open class ShramJSONManager
         default:
             break
         }
+        
         return JSON
     }
     
-    internal func createJSONObjectFrom(_ incomingData: Data) -> Any?
-    {
+    internal func createJSONObjectFrom(_ incomingData: Data) -> Any? {
+        
         var JSONObject: Any?
-        do
-        {
+        
+        do {
+            
             JSONObject = try JSONSerialization.jsonObject(with: incomingData, options: .allowFragments)
             
             switch JSONObject {
+                
             case _ as [String : Any]:
+                
                 JSONObject = JSONObject as! [String : Any]
+                
             case _ as [Any]:
+                
                 JSONObject = JSONObject as! [Any]
+                
             default:
                 break
             }
         }
-        catch let error
-        {
-            NSLog("JSON error = \(error)")//TODO: Add to Shram Errors
+        catch let error {
+            
+            NSLog("JSON error = \(error)")//TODO: Add to Errors
         }
+        
         return JSONObject
     }
     
-    fileprivate func parseDictionary(dictionary: [String: AnyObject], parentKey: String, toJSON JSON: inout [String : AnyObject])
-    {
-        for (var key, value) in dictionary
-        {
+    fileprivate func parseDictionary(dictionary: [String: AnyObject], parentKey: String, toJSON JSON: inout [String : AnyObject]) {
+        
+        for (var key, value) in dictionary {
+            
             key = parentKey == "" ? key : parentKey + "[\(key)]"
             
-            switch value
-            {
+            switch value {
+                
             case is String, is Int, is Double:
                 
                 JSON[key] = value
@@ -81,20 +88,21 @@ open class ShramJSONManager
                 parseDictionary(dictionary: value as! [String : AnyObject], parentKey: key, toJSON: &JSON)
                 
             default:
+                
                 NSLog("Unsupported type")
                 break
             }
         }
     }
     
-    fileprivate func parseArray(array: [AnyObject], parentKey: String, toJSON JSON: inout [String : AnyObject])
-    {
-        for (i, obj) in array.enumerated()
-        {
+    fileprivate func parseArray(array: [AnyObject], parentKey: String, toJSON JSON: inout [String : AnyObject]) {
+        
+        for (i, obj) in array.enumerated() {
+            
             let key = parentKey == "" ? "" : parentKey + "[\(i)]"
             
-            switch obj
-            {
+            switch obj {
+                
             case is String, is Int, is Double:
                 
                 JSON[key] = obj

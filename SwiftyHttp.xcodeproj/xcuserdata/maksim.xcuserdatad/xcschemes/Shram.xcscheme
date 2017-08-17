@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "18F904781C7E243D00FA7B6B"
-               BuildableName = "Shram.framework"
-               BlueprintName = "Shram"
-               ReferencedContainer = "container:Shram.xcodeproj">
+               BuildableName = "SwiftyHttp.framework"
+               BlueprintName = "SwiftyHttp"
+               ReferencedContainer = "container:SwiftyHttp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "18F904781C7E243D00FA7B6B"
-            BuildableName = "Shram.framework"
-            BlueprintName = "Shram"
-            ReferencedContainer = "container:Shram.xcodeproj">
+            BuildableName = "SwiftyHttp.framework"
+            BlueprintName = "SwiftyHttp"
+            ReferencedContainer = "container:SwiftyHttp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,9 +64,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "18F904781C7E243D00FA7B6B"
-            BuildableName = "Shram.framework"
-            BlueprintName = "Shram"
-            ReferencedContainer = "container:Shram.xcodeproj">
+            BuildableName = "SwiftyHttp.framework"
+            BlueprintName = "SwiftyHttp"
+            ReferencedContainer = "container:SwiftyHttp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

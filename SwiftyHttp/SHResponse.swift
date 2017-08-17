@@ -1,8 +1,9 @@
 import Foundation
 
-open class ShramResponse
-{    
+open class SHResponse {
+    
     public var JSON: Any? {
+        
         get {
             switch _JSON {
             case _ as [Any]:
@@ -15,13 +16,14 @@ open class ShramResponse
         }
     }
     
-    fileprivate var _JSON: Any?
-    
     public var statusCode: Int? {
+        
         get {
             return (response as? HTTPURLResponse)?.statusCode
         }
     }
+    
+    fileprivate var _JSON: Any?
     
     fileprivate let response: URLResponse?
     
@@ -35,9 +37,9 @@ open class ShramResponse
         
         guard
             let data = incomingData,
-            let json = ShramJSON.createJSONObjectFrom(data)
+            let json = SHJSON.createJSONObjectFrom(data)
             else {
-            //TODO: Add to Shram Errors
+            //TODO: Add to Errors
             return
         }
         
@@ -55,7 +57,7 @@ open class ShramResponse
                 
             } else {
                 
-                NSLog("error: Parsing JSON Error")//TODO: Add to Shram Errors
+                NSLog("error: Parsing JSON Error")//TODO: Add to Errors
             }
         }
     }

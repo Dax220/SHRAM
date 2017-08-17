@@ -25,7 +25,7 @@ private struct AvailableContentTypes {
     static let MULTIPART_FORM_DATA = "multipart/form-data;"
 }
 
-fileprivate protocol ShramRequestConfigure {
+fileprivate protocol SHRequestConfigure {
     
     var requestURL: String! {get set}
     
@@ -42,12 +42,12 @@ fileprivate protocol ShramRequestConfigure {
     var timeOut: TimeInterval {get set}
 }
 
-fileprivate protocol ShramOriginalRequest {
+fileprivate protocol SHOriginalRequest {
     
     var originalRequest: URLRequest! {get}
 }
 
-public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
+public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     public var requestURL: String! {
         get {
@@ -134,17 +134,15 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
     
     fileprivate var _originalRequest: URLRequest?
     
-    fileprivate var boundary: String {
-        get {
-            return "unique-consistent-string" //TODO: - genarate boundary
-        }
-    }
+    fileprivate var boundary: String = SHRequest.generateBoundary()
     
     //MARK: - Initialization
     
     public init(URL: String, method: String) {
+        
         _URL = URL
         _method = method
+        
         if (method == Method.POST || method == Method.PUT) {
             _contentType = ContentType.multipart_form_data
         }
@@ -200,7 +198,7 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
         
         configureRequest()
         
-        let dataTask = ShramDataTaskManager.createDataTaskWithRequest(request: self, completion: completion, failure: failure)
+        let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: self, completion: completion, failure: failure)
         dataTask.resume()
         return dataTask
     }
@@ -212,10 +210,10 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
         
         configureRequest()
         
-        let downloadTask = ShramDataTaskManager.createDownloadTaskWithRequest(request: self,
-                                                                             completion: completion,
-                                                                             progress: progress,
-                                                                             failure: failure)
+        let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: self,
+                                                                           completion: completion,
+                                                                           progress: progress,
+                                                                           failure: failure)
         downloadTask.resume()
         return downloadTask
     }
@@ -227,10 +225,10 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
         
         configureRequest()
         
-        let uploadTask = ShramDataTaskManager.createUploadTaskWithRequest(request: self,
-                                                                         completion: completion,
-                                                                         progress: progress,
-                                                                         failure: failure)
+        let uploadTask = SHDataTaskManager.createUploadTaskWithRequest(request: self,
+                                                                       completion: completion,
+                                                                       progress: progress,
+                                                                       failure: failure)
         uploadTask.resume()
         return uploadTask
     }
@@ -302,12 +300,12 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
             return
         }
         
-        _params = ShramJSON.createJSONObject(fromObject: _params as AnyObject)
+        _params = SHJSON.createJSONObject(fromObject: _params as AnyObject)
         
         var postString = ""
         fillPostString(&postString)
         postString = (postString as NSString).substring(to: (postString as NSString).length - 1)
-        _originalRequest!.httpBody = postString.data(using: String.Encoding.utf8) //TODO: handle IOS version since 8.0
+        _originalRequest!.httpBody = postString.data(using: String.Encoding.utf8)
     }
     
     fileprivate func fillPostString(_ postString: inout String) {
@@ -321,9 +319,9 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
     fileprivate mutating func setJsonData() {
         
         if let object = _params {
-            _originalRequest!.httpBody = ShramJSON.createJSONData(fromObject: object as AnyObject) as Data?
+            _originalRequest!.httpBody = SHJSON.createJSONData(fromObject: object as AnyObject) as Data?
         } else {
-            //TODO: Handle error and add to Shram Error
+            //TODO: Handle error and add to Error
         }
     }
     
@@ -343,7 +341,7 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
         
         for (key, value) in _params! {
             setBoundary(toBody: body)
-            if let filePath = ShramFileManager.checkPathForResource(value) {
+            if let filePath = SHFileManager.checkPathForResource(value) {
                 appendMultipartBodyWithFile(body: body, name: key, pathForResource: filePath)
             } else {
                 appendMultipartBody(body: body, name: key, value: value)
@@ -359,19 +357,27 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
             let URL = URL(string: pathForResource)
             else { NSLog("appendMultipartBody err"); return /*TODO: handle error*/ }
         
-        let mimeType = ShramMIMETypesService.sharedInstance().mimeTypeForURL(URL)
-        body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(URL.lastPathComponent)\"\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
-        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        let mimeType = SHMIMETypesService.sharedInstance().mimeTypeForURL(URL)
+        body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(URL.lastPathComponent)\"\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: String.Encoding.utf8)!)
         body.append(fileData)
-        body.append("\r\n\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        body.append("\r\n\r\n".data(using: String.Encoding.utf8)!)
     }
     
     fileprivate func appendMultipartBody(body: NSMutableData, name: String, value: AnyObject) {
-        body.append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
-        body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        
+        body.append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)
     }
     
     fileprivate func setBoundary(toBody body: NSMutableData) {
-        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+    }
+    
+    //MARK: - Boundary creation
+    fileprivate static func generateBoundary() -> String {
+        
+        return "Http.Request.Buoundary-\(Date().timeIntervalSince1970)"
     }
 }
