@@ -4,16 +4,16 @@ public typealias BytesSent = Int64
 public typealias TotalBytesSent = Int64
 public typealias TotalBytesExpectedToSend = Int64
 
-public typealias SuccessHTTPCallBack = (_ request: ShramRequest, _ data: Data?, _ response: ShramResponse?) -> Void
-public typealias FailureHTTPCallBack = (_ request: ShramRequest, _ error: Error?, _ response: ShramResponse?) -> Void
-public typealias ProgressCallBack = (_ bytesSent: BytesSent, _ totalBytesSent: TotalBytesSent, _ totalBytesExpectedToSend: TotalBytesExpectedToSend, _ response: ShramResponse) -> Void
-public typealias DownloadCompletion = (_ didFinishDownloadingToURL: URL, _ response: ShramResponse) -> Void
-public typealias UploadCompletion = (_ response: ShramResponse) -> Void
+public typealias SuccessHTTPCallBack = (_ request: SHRequest, _ data: Data?, _ response: SHResponse?) -> Void
+public typealias FailureHTTPCallBack = (_ request: SHRequest, _ error: Error?, _ response: SHResponse?) -> Void
+public typealias ProgressCallBack = (_ bytesSent: BytesSent, _ totalBytesSent: TotalBytesSent, _ totalBytesExpectedToSend: TotalBytesExpectedToSend, _ response: SHResponse) -> Void
+public typealias DownloadCompletion = (_ didFinishDownloadingToURL: URL, _ response: SHResponse) -> Void
+public typealias UploadCompletion = (_ response: SHResponse) -> Void
 
-let ShramDataTaskManager = ShramDataTaskService()
+let SHDataTaskManager = SHDataTaskService()
 
-class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, URLSessionDownloadDelegate
-{    
+class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, URLSessionDownloadDelegate {
+    
     var urlSession: Foundation.URLSession!
     
     override init() {
@@ -23,8 +23,10 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
     
     //MARK: - NSURLSessionDownloadDelegate
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        
         if let request = downloadTask.callBackHandler?.request {
-            let dzenResponse = ShramResponse(response: downloadTask.response, mapTo: request.mapTo, parseKeys: request.parseKeys)
+            
+            let dzenResponse = SHResponse(response: downloadTask.response, parseKeys: request.parseKeys)
             
             guard let response = downloadTask.response as? HTTPURLResponse else {
                 downloadTask.callBackHandler?.error?(request, nil, dzenResponse)
@@ -35,7 +37,7 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
             case 200..<400:
                 downloadTask.callBackHandler?.downloadCompletion?(location, dzenResponse)
             case 400...500:
-                downloadTask.callBackHandler?.error?(request, nil, dzenResponse) //TODO: handle error and add to Shram Errors
+                downloadTask.callBackHandler?.error?(request, nil, dzenResponse) //TODO: handle error and add to Errors
             default:
                 break
             }
@@ -45,7 +47,8 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         
         if let request = downloadTask.callBackHandler?.request {
-            let dzenResponse = ShramResponse(response: downloadTask.response, mapTo: request.mapTo, parseKeys: request.parseKeys)
+            
+            let dzenResponse = SHResponse(response: downloadTask.response, parseKeys: request.parseKeys)
             
             guard let response = downloadTask.response as? HTTPURLResponse else {
                 downloadTask.callBackHandler?.error?(request, nil, dzenResponse)
@@ -56,7 +59,7 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
             case 200..<400:
                 downloadTask.callBackHandler?.progress?(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, dzenResponse)
             case 400...500:
-                downloadTask.callBackHandler?.error?(request, nil, dzenResponse) //TODO: handle error and add to Shram Errors
+                downloadTask.callBackHandler?.error?(request, nil, dzenResponse) //TODO: handle error and add to Errors
             default:
                 break
             }
@@ -67,7 +70,7 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
         
         if let request = task.callBackHandler?.request {
             
-            let dzenResponse = ShramResponse(response: task.response, mapTo: request.mapTo, parseKeys: request.parseKeys)
+            let dzenResponse = SHResponse(response: task.response, parseKeys: request.parseKeys)
             
             if task is URLSessionUploadTask {
                 
@@ -88,20 +91,20 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
         
         if let request = task.callBackHandler?.request {
          
-            let dzenResponse = ShramResponse(response: task.response, mapTo: request.mapTo, parseKeys: request.parseKeys)
+            let dzenResponse = SHResponse(response: task.response, parseKeys: request.parseKeys)
             
             task.callBackHandler?.progress?(bytesSent, totalBytesSent, totalBytesExpectedToSend, dzenResponse)
         
         }
     }
     
-    func createDataTaskWithRequest(request: ShramRequest,
+    func createDataTaskWithRequest(request: SHRequest,
                                    completion: SuccessHTTPCallBack?,
                                    failure: FailureHTTPCallBack?) -> URLSessionDataTask {
         
         return urlSession.dataTask(with: request.originalRequest) { (data, resp, err) in
             
-            let dzenResponse = ShramResponse(data: data, response: resp, mapTo: request.mapTo, parseKeys: request.parseKeys)
+            let dzenResponse = SHResponse(data: data, response: resp, parseKeys: request.parseKeys)
             
             guard err == nil else {
                 failure?(request, err, dzenResponse)
@@ -109,7 +112,7 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
             }
             
             guard let response = resp as? HTTPURLResponse else {
-                failure?(request, nil, dzenResponse) //TODO: handle error and add to Shram Errors
+                failure?(request, nil, dzenResponse) //TODO: handle error and add to Errors
                 return
             }
             
@@ -117,7 +120,7 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
             case 200..<400:
                 completion?(request, data, dzenResponse)
             case 400...500:
-                failure?(request, err, dzenResponse) //TODO: handle error and add to Shram Errors
+                failure?(request, err, dzenResponse) //TODO: handle error and add to Errors
             default:
                 break
             }
@@ -125,7 +128,7 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
     }
     
     //MARK: - Upload file task
-    func createUploadTaskWithRequest(request: ShramRequest,
+    func createUploadTaskWithRequest(request: SHRequest,
                                     completion: UploadCompletion?,
                                     progress: ProgressCallBack?,
                                     failure: FailureHTTPCallBack?) -> URLSessionUploadTask {
@@ -137,7 +140,7 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
     }
     
     //MARK: - Download file task
-    func createDownloadTaskWithRequest(request: ShramRequest,
+    func createDownloadTaskWithRequest(request: SHRequest,
                                        completion: DownloadCompletion?,
                                        progress: ProgressCallBack?,
                                        failure: FailureHTTPCallBack?) -> URLSessionDownloadTask {
@@ -149,15 +152,15 @@ class ShramDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate
     }
 }
 
-internal class CallBackHandler: NSObject
-{    
+internal class CallBackHandler: NSObject {
+    
     var progress: ProgressCallBack?
     var downloadCompletion: DownloadCompletion?
     var error: FailureHTTPCallBack?
     var uploadCompletion: UploadCompletion?
-    var request: ShramRequest
+    var request: SHRequest
     
-    init(request: ShramRequest,
+    init(request: SHRequest,
          progressHandler progress: ProgressCallBack? = nil,
          downloadCompletionHandler downloadCompletion: DownloadCompletion? = nil,
          uploadCompletionHandler uploadCompletion: UploadCompletion? = nil,
