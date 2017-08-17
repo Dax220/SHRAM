@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3ED0981C1DCEB02D00B8714E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0981B1DCEB02D00B8714E /* README.md */; };
+		7040EF8BCA33D6D5D5AE2593 /* Pods_SwiftyHttp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BB3875511F8CABB7B64913 /* Pods_SwiftyHttp.framework */; };
 		B57041911F45E45E0068A8FD /* SwiftyHttp.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B57041901F45E45E0068A8FD /* SwiftyHttp.podspec */; };
 		B5AEBD1B1F45B2CF00F15403 /* SHDataTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBD131F45B2CF00F15403 /* SHDataTaskService.swift */; };
 		B5AEBD1C1F45B2CF00F15403 /* SHExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBD141F45B2CF00F15403 /* SHExtensions.swift */; };
@@ -23,6 +24,8 @@
 /* Begin PBXFileReference section */
 		18F904791C7E243D00FA7B6B /* SwiftyHttp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyHttp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED0981B1DCEB02D00B8714E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5C9953B08D600B84B394B54F /* Pods-SwiftyHttp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyHttp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyHttp/Pods-SwiftyHttp.debug.xcconfig"; sourceTree = "<group>"; };
+		77BB3875511F8CABB7B64913 /* Pods_SwiftyHttp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftyHttp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57041901F45E45E0068A8FD /* SwiftyHttp.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftyHttp.podspec; sourceTree = "<group>"; };
 		B5AEBD111F45B2BF00F15403 /* SwiftyHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyHttp.h; path = SwiftyHttp/SwiftyHttp.h; sourceTree = "<group>"; };
 		B5AEBD131F45B2CF00F15403 /* SHDataTaskService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHDataTaskService.swift; path = SwiftyHttp/SHDataTaskService.swift; sourceTree = SOURCE_ROOT; };
@@ -33,6 +36,7 @@
 		B5AEBD181F45B2CF00F15403 /* SHRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHRequest.swift; path = SwiftyHttp/SHRequest.swift; sourceTree = SOURCE_ROOT; };
 		B5AEBD191F45B2CF00F15403 /* SHResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHResponse.swift; path = SwiftyHttp/SHResponse.swift; sourceTree = SOURCE_ROOT; };
 		B5AEBD1A1F45B2CF00F15403 /* SwiftyHttp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyHttp.swift; path = SwiftyHttp/SwiftyHttp.swift; sourceTree = SOURCE_ROOT; };
+		B906A9136592574A376B27CF /* Pods-SwiftyHttp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyHttp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyHttp/Pods-SwiftyHttp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7040EF8BCA33D6D5D5AE2593 /* Pods_SwiftyHttp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +59,8 @@
 				3ED0981B1DCEB02D00B8714E /* README.md */,
 				18F9047B1C7E243D00FA7B6B /* SwiftyHttp */,
 				18F9047A1C7E243D00FA7B6B /* Products */,
+				28C2149BC4F236D6807EC702 /* Pods */,
+				668FC038BEF9A61E33BB0266 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +88,23 @@
 			path = Dzen;
 			sourceTree = "<group>";
 		};
+		28C2149BC4F236D6807EC702 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5C9953B08D600B84B394B54F /* Pods-SwiftyHttp.debug.xcconfig */,
+				B906A9136592574A376B27CF /* Pods-SwiftyHttp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		668FC038BEF9A61E33BB0266 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77BB3875511F8CABB7B64913 /* Pods_SwiftyHttp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -99,10 +123,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18F9048D1C7E243D00FA7B6B /* Build configuration list for PBXNativeTarget "SwiftyHttp" */;
 			buildPhases = (
+				D95BF5FAD7C1BA9F576C1CCF /* [CP] Check Pods Manifest.lock */,
 				18F904741C7E243D00FA7B6B /* Sources */,
 				18F904751C7E243D00FA7B6B /* Frameworks */,
 				18F904761C7E243D00FA7B6B /* Headers */,
 				18F904771C7E243D00FA7B6B /* Resources */,
+				ED5FED6C72935404F1B406F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -156,6 +182,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D95BF5FAD7C1BA9F576C1CCF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ED5FED6C72935404F1B406F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftyHttp/Pods-SwiftyHttp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		18F904741C7E243D00FA7B6B /* Sources */ = {
@@ -273,6 +332,7 @@
 		};
 		18F9048E1C7E243D00FA7B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C9953B08D600B84B394B54F /* Pods-SwiftyHttp.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -295,6 +355,7 @@
 		};
 		18F9048F1C7E243D00FA7B6B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B906A9136592574A376B27CF /* Pods-SwiftyHttp.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";

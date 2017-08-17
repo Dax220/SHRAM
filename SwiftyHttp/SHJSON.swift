@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyJSON
 
 public let SHJSON = SHJSONJSONManager()
 
