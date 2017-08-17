@@ -37,62 +37,6 @@ open class ShramJSONManager
         return JSON
     }
     
-    //MARK: - Maping method
-    internal func stringValue(_ object: Any) -> String
-    {
-        switch object {
-        case is String:
-            return object as? String ?? ""
-        case is NSNumber:
-            return (object as! NSNumber).stringValue
-        case is Int:
-            return String(describing: object)
-        default:
-            return ""
-        }
-    }
-    
-    internal func intValue(_ object: AnyObject) -> Int
-    {
-        return self.numberValue(object).intValue
-    }
-    
-    internal func doubleValue(_ object: AnyObject) -> Double
-    {
-        return self.numberValue(object).doubleValue
-    }
-    
-    internal func cgfloatValue(_ object: AnyObject) -> CGFloat
-    {
-        return CGFloat(self.numberValue(object).doubleValue)
-    }
-    
-    internal func boolValue(_ object: AnyObject) -> Bool
-    {
-        switch object {
-        case is Bool:
-            return object as! Bool
-        default:
-            return false
-        }
-    }
-    
-    internal func numberValue(_ object: AnyObject) -> NSNumber
-    {
-        switch object {
-        case is String:
-            let decimal = NSDecimalNumber(string: object as? String)
-            if decimal == NSDecimalNumber.notANumber {
-                return NSDecimalNumber.zero
-            }
-            return decimal
-        case is NSNumber:
-            return object as? NSNumber ?? NSNumber(value: 0)
-        default:
-            return NSNumber(value: 0.0)
-        }
-    }
-    
     internal func createJSONObjectFrom(_ incomingData: Data) -> Any?
     {
         var JSONObject: Any?

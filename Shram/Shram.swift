@@ -12,7 +12,6 @@ open class ShramManager: NSObject
                        params: params,
                        contentType: contentType,
                        headers: headers,
-                       mapTo: Type,
                        withParseKeys: ["firstKey", "secondKey", ...],
                        completion: { (request, data, response) in
      
@@ -29,7 +28,6 @@ open class ShramManager: NSObject
         * application/x-www-form-urlencoded (.URLENCODED)
         * multipart/form-data (.MULTIPART_FORM_DATA)
      - parameter headers: Dictionary with HTTP Headers.
-     - parameter mapTo: Type of object you want to get. This type should implements ShramMappingProtocol.
      - parameter withParseKeys: String array of keys to parse server response with nested objects. For example server returns data in object with key "data":
      
             {
@@ -40,7 +38,7 @@ open class ShramManager: NSObject
                             }
             }
      
-        for getting needed data and map it to your class you need to set
+        for getting needed data you need to set
      
             withParseKeys: ["data"]
      
@@ -64,15 +62,15 @@ open class ShramManager: NSObject
          params: [String: AnyObject]?,
          contentType: ContentType,
          headers: [String: String]? = nil,
-         mapTo: ShramMappingProtocol.Type? = nil,
          withParseKeys parseKeys: [String]? = nil,
          completion: @escaping SuccessHTTPCallBack,
          failure: @escaping FailureHTTPCallBack)
-        -> URLSessionDataTask
-    {
-        let request = ShramRequest(URL: URL, method: Method.POST, params: params, contentType: contentType, headers: headers, mapTo: mapTo, parseKeys: parseKeys)
+        -> URLSessionDataTask {
+            
+        let request = ShramRequest(URL: URL, method: Method.POST, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
         let dataTask = ShramDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
+            
         return dataTask
     }
     
@@ -83,7 +81,6 @@ open class ShramManager: NSObject
             Shram.GET("http://www.sample.com/api/method",
                       params: params,
                       headers: headers,
-                      mapTo: Type,
                       withParseKeys: ["firstKey", "secondKey", ...],
                       completion: { (request, data, response) in
      
@@ -96,7 +93,6 @@ open class ShramManager: NSObject
      - parameter URL: String value of API method.
      - parameter params: Dictionary where the key is a server parameter and value is the parameter that should be sent.
      - parameter headers: Dictionary with HTTP Headers.
-     - parameter mapTo: Type of object you want to get. This type should implements ShramMappingProtocol.
      - parameter withParseKeys: String array of keys to parse server response with nested objects. For example server returns data in object with key "data":
      
             {
@@ -107,7 +103,7 @@ open class ShramManager: NSObject
                             }
             }
      
-       for getting needed data and map it to your class you need to set
+       for getting needed data you need to set
      
             withParseKeys: ["data"]
      
@@ -130,15 +126,15 @@ open class ShramManager: NSObject
         (_ URL: String,
          params: [String: AnyObject]? = nil,
          headers: [String: String]? = nil,
-         mapTo: ShramMappingProtocol.Type? = nil,
          withParseKeys parseKeys: [String]? = nil,
          completion: @escaping SuccessHTTPCallBack,
          failure: @escaping FailureHTTPCallBack)
-        -> URLSessionDataTask
-    {
-        let request = ShramRequest(URL: URL, method:  Method.GET, params: params, headers: headers, mapTo: mapTo, parseKeys: parseKeys)
+        -> URLSessionDataTask {
+            
+        let request = ShramRequest(URL: URL, method:  Method.GET, params: params, headers: headers, parseKeys: parseKeys)
         let dataTask = ShramDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
+            
         return dataTask
     }
     
@@ -150,7 +146,6 @@ open class ShramManager: NSObject
                       params: params,
                       contentType: .JSON,
                       headers:headers,
-                      mapTo: Type,
                       withParseKeys: ["firstKey", "secondKey", ...],
                       completion: { (request, data, response) in
      
@@ -167,7 +162,6 @@ open class ShramManager: NSObject
         * application/x-www-form-urlencoded (.URLENCODED)
         * multipart/form-data (.MULTIPART_FORM_DATA)
      - parameter headers: Dictionary with HTTP Headers.
-     - parameter mapTo: Type of object you want to get. This type should implements ShramMappingProtocol.
      - parameter withParseKeys: String array of keys to parse server response with nested objects. For example server returns data in object with key "data":
      
             {
@@ -178,7 +172,7 @@ open class ShramManager: NSObject
                             }
             }
      
-        for getting needed data and map it to your class you need to set
+        for getting needed data you need to set
      
             withParseKeys: ["data"]
      
@@ -202,15 +196,15 @@ open class ShramManager: NSObject
          params: [String: AnyObject]?,
          contentType: ContentType,
          headers: [String: String]? = nil,
-         mapTo: ShramMappingProtocol.Type? = nil,
          withParseKeys parseKeys: [String]? = nil,
          completion: @escaping SuccessHTTPCallBack,
          failure: @escaping FailureHTTPCallBack)
-        -> URLSessionDataTask
-    {
-        let request = ShramRequest(URL: URL, method: Method.PUT, params: params, contentType: contentType, headers: headers, mapTo: mapTo, parseKeys: parseKeys)
+        -> URLSessionDataTask {
+            
+        let request = ShramRequest(URL: URL, method: Method.PUT, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
         let dataTask = ShramDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
+            
         return dataTask
     }
     
@@ -221,7 +215,6 @@ open class ShramManager: NSObject
             Shram.DELETE("http://www.sample.com/api/method",
                          params: params,
                          headers: headers,
-                         mapTo: Type,
                          withParseKeys: ["firstKey", "secondKey", ...],
                          completion: { (request, data, response) in
      
@@ -234,7 +227,6 @@ open class ShramManager: NSObject
      - parameter URL: String value of API method.
      - parameter params: Dictionary where the key is a server parameter and value is the parameter that should be sent.
      - parameter headers: Dictionary with HTTP Headers.
-     - parameter mapTo: Type of object you want to get. This type should implements ShramMappingProtocol.
      - parameter withParseKeys: String array of keys to parse server response with nested objects. For example server returns data in object with key "data":
      
             {
@@ -245,7 +237,7 @@ open class ShramManager: NSObject
                             }
             }
      
-        for getting needed data and map it to your class you need to set
+        for getting needed data you need to set
      
             withParseKeys: ["data"]
      
@@ -268,15 +260,15 @@ open class ShramManager: NSObject
         (_ URL: String,
          params: [String: AnyObject]? = nil,
          headers: [String: String]? = nil,
-         mapTo: ShramMappingProtocol.Type? = nil,
          withParseKeys parseKeys: [String]? = nil,
          completion: @escaping SuccessHTTPCallBack,
          failure: @escaping FailureHTTPCallBack)
-        -> URLSessionDataTask
-    {        
-        let request = ShramRequest(URL: URL, method:  Method.DELETE, params: params, headers: headers, mapTo: mapTo, parseKeys: parseKeys)
+        -> URLSessionDataTask {
+            
+        let request = ShramRequest(URL: URL, method:  Method.DELETE, params: params, headers: headers, parseKeys: parseKeys)
         let dataTask = ShramDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
+        
         return dataTask
     }
     
@@ -331,11 +323,12 @@ open class ShramManager: NSObject
          completion: @escaping UploadCompletion,
          progress: @escaping ProgressCallBack,
          failure: @escaping FailureHTTPCallBack)
-        -> URLSessionUploadTask
-    {
+        -> URLSessionUploadTask {
+            
         let request = ShramRequest(URL: URL, method: Method.POST, params: params, contentType: .multipart_form_data, headers: headers)
         let uploadTask = ShramDataTaskManager.createUploadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
         uploadTask.resume()
+            
         return uploadTask
     }
     
@@ -389,11 +382,12 @@ open class ShramManager: NSObject
          completion: @escaping DownloadCompletion,
          progress: @escaping ProgressCallBack,
          failure: @escaping FailureHTTPCallBack)
-        -> URLSessionDownloadTask
-    {
+        -> URLSessionDownloadTask {
+            
         let request = ShramRequest(URL: URL, method: Method.GET, params: params, contentType: .multipart_form_data, headers: headers)
         let downloadTask = ShramDataTaskManager.createDownloadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
         downloadTask.resume()
+            
         return downloadTask
     }
 }
