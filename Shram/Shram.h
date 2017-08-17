@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import "ExceptionHandler.h"
 
 //! Project version number for Shram.
 FOUNDATION_EXPORT double ShramVersionNumber;

@@ -1,8 +1,8 @@
 import Foundation
 
 //MARK: - Request HTTP Methods Struct
-public struct Method
-{
+public struct Method {
+    
     static let GET = "GET"
     static let PUT = "PUT"
     static let POST = "POST"
@@ -10,16 +10,16 @@ public struct Method
 }
 
 //MARK: - Request content type enum
-public enum ContentType: Int
-{
+public enum ContentType: Int {
+    
     case json
     case urlencoded
     case multipart_form_data
 }
 
 //MARK: - Supported content types
-private struct AvailableContentTypes
-{
+private struct AvailableContentTypes {
+    
     static let JSON = "application/json"
     static let URLENCODED = "application/x-www-form-urlencoded"
     static let MULTIPART_FORM_DATA = "multipart/form-data;"
@@ -37,8 +37,6 @@ fileprivate protocol ShramRequestConfigure {
     
     var headers: [String : String]? {get set}
     
-    var mapTo: ShramMappingProtocol.Type? {get set}
-    
     var parseKeys: [String]? {get set}
     
     var timeOut: TimeInterval {get set}
@@ -47,11 +45,10 @@ fileprivate protocol ShramRequestConfigure {
 fileprivate protocol ShramOriginalRequest {
     
     var originalRequest: URLRequest! {get}
-    
 }
 
-public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
-{
+public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
+    
     public var requestURL: String! {
         get {
             return _URL
@@ -97,15 +94,6 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
         }
     }
     
-    public var mapTo: ShramMappingProtocol.Type? {
-        get {
-            return _mapTo
-        }
-        set {
-            _mapTo = newValue
-        }
-    }
-    
     public var parseKeys: [String]? {
         get {
             return _parseKeys
@@ -139,8 +127,6 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
     fileprivate var _contentType: ContentType?
     
     fileprivate var _headers: [String : String]?
-    
-    fileprivate var _mapTo: ShramMappingProtocol.Type?
 
     fileprivate var _parseKeys: [String]?
     
@@ -168,7 +154,6 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
                   method: String,
                   params: [String: AnyObject]?,
                   headers: [String: String]?,
-                  mapTo: ShramMappingProtocol.Type? = nil,
                   parseKeys: [String]? = nil) {
         
         var finalURL = URL
@@ -181,7 +166,6 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
         _method = method
         _params = params
         _headers = headers
-        _mapTo = mapTo
         _parseKeys = parseKeys
         _originalRequest = URLRequest(url: Foundation.URL(string: _URL)!, cachePolicy: .useProtocolCachePolicy)
         _originalRequest!.httpMethod = _method
@@ -194,7 +178,6 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
                   params: [String: AnyObject]?,
                   contentType: ContentType,
                   headers: [String : String]?,
-                  mapTo: ShramMappingProtocol.Type? = nil,
                   parseKeys: [String]? = nil) {
         
         _URL = URL
@@ -202,7 +185,6 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest
         _params = params
         _contentType = contentType
         _headers = headers
-        _mapTo = mapTo
         _parseKeys = parseKeys
         _originalRequest = URLRequest(url: Foundation.URL(string: _URL)!, cachePolicy: .useProtocolCachePolicy)
         _originalRequest!.httpMethod = _method

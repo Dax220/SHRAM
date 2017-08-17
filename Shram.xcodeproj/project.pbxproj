@@ -11,15 +11,12 @@
 		3ED097F11DCEA49A00B8714E /* Shram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D01DCEA1E100B8714E /* Shram.swift */; };
 		3ED097F21DCEA49A00B8714E /* ShramDataTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D11DCEA1E100B8714E /* ShramDataTaskService.swift */; };
 		3ED097F31DCEA49A00B8714E /* ShramExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D21DCEA1E100B8714E /* ShramExtensions.swift */; };
-		3ED097F41DCEA49A00B8714E /* ShramFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D31DCEA1E100B8714E /* ShramFactory.swift */; };
 		3ED097F51DCEA49A00B8714E /* ShramFileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D41DCEA1E100B8714E /* ShramFileService.swift */; };
 		3ED097F61DCEA49A00B8714E /* ShramJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D51DCEA1E100B8714E /* ShramJSON.swift */; };
 		3ED097F71DCEA49A00B8714E /* ShramMIMETypesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D61DCEA1E100B8714E /* ShramMIMETypesService.swift */; };
-		3ED097F81DCEA49A00B8714E /* ShramProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D71DCEA1E100B8714E /* ShramProtocols.swift */; };
 		3ED097F91DCEA49A00B8714E /* ShramRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D81DCEA1E100B8714E /* ShramRequest.swift */; };
 		3ED097FA1DCEA49A00B8714E /* ShramResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED097D91DCEA1E100B8714E /* ShramResponse.swift */; };
 		3ED0981C1DCEB02D00B8714E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0981B1DCEB02D00B8714E /* README.md */; };
-		3ED098921DCF84CC00B8714E /* ExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED098911DCF84CC00B8714E /* ExceptionHandler.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,16 +25,13 @@
 		3ED097D01DCEA1E100B8714E /* Shram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shram.swift; path = Shram/Shram.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D11DCEA1E100B8714E /* ShramDataTaskService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramDataTaskService.swift; path = Shram/ShramDataTaskService.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D21DCEA1E100B8714E /* ShramExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramExtensions.swift; path = Shram/ShramExtensions.swift; sourceTree = SOURCE_ROOT; };
-		3ED097D31DCEA1E100B8714E /* ShramFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramFactory.swift; path = Shram/ShramFactory.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D41DCEA1E100B8714E /* ShramFileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramFileService.swift; path = Shram/ShramFileService.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D51DCEA1E100B8714E /* ShramJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramJSON.swift; path = Shram/ShramJSON.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D61DCEA1E100B8714E /* ShramMIMETypesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramMIMETypesService.swift; path = Shram/ShramMIMETypesService.swift; sourceTree = SOURCE_ROOT; };
-		3ED097D71DCEA1E100B8714E /* ShramProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramProtocols.swift; path = Shram/ShramProtocols.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D81DCEA1E100B8714E /* ShramRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramRequest.swift; path = Shram/ShramRequest.swift; sourceTree = SOURCE_ROOT; };
 		3ED097D91DCEA1E100B8714E /* ShramResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShramResponse.swift; path = Shram/ShramResponse.swift; sourceTree = SOURCE_ROOT; };
 		3ED097E41DCEA21500B8714E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Shram/Info.plist; sourceTree = "<group>"; };
 		3ED0981B1DCEB02D00B8714E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3ED098911DCF84CC00B8714E /* ExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionHandler.h; path = Shram/ExceptionHandler.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,15 +67,12 @@
 		18F9047B1C7E243D00FA7B6B /* Shram */ = {
 			isa = PBXGroup;
 			children = (
-				3ED098911DCF84CC00B8714E /* ExceptionHandler.h */,
 				3ED097D01DCEA1E100B8714E /* Shram.swift */,
 				3ED097D11DCEA1E100B8714E /* ShramDataTaskService.swift */,
 				3ED097D21DCEA1E100B8714E /* ShramExtensions.swift */,
-				3ED097D31DCEA1E100B8714E /* ShramFactory.swift */,
 				3ED097D41DCEA1E100B8714E /* ShramFileService.swift */,
 				3ED097D51DCEA1E100B8714E /* ShramJSON.swift */,
 				3ED097D61DCEA1E100B8714E /* ShramMIMETypesService.swift */,
-				3ED097D71DCEA1E100B8714E /* ShramProtocols.swift */,
 				3ED097D81DCEA1E100B8714E /* ShramRequest.swift */,
 				3ED097D91DCEA1E100B8714E /* ShramResponse.swift */,
 			);
@@ -97,7 +88,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ED097CF1DCEA1CD00B8714E /* Shram.h in Headers */,
-				3ED098921DCF84CC00B8714E /* ExceptionHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,11 +163,9 @@
 				3ED097F11DCEA49A00B8714E /* Shram.swift in Sources */,
 				3ED097F21DCEA49A00B8714E /* ShramDataTaskService.swift in Sources */,
 				3ED097F31DCEA49A00B8714E /* ShramExtensions.swift in Sources */,
-				3ED097F41DCEA49A00B8714E /* ShramFactory.swift in Sources */,
 				3ED097F51DCEA49A00B8714E /* ShramFileService.swift in Sources */,
 				3ED097F61DCEA49A00B8714E /* ShramJSON.swift in Sources */,
 				3ED097F71DCEA49A00B8714E /* ShramMIMETypesService.swift in Sources */,
-				3ED097F81DCEA49A00B8714E /* ShramProtocols.swift in Sources */,
 				3ED097F91DCEA49A00B8714E /* ShramRequest.swift in Sources */,
 				3ED0981C1DCEB02D00B8714E /* README.md in Sources */,
 				3ED097FA1DCEA49A00B8714E /* ShramResponse.swift in Sources */,
