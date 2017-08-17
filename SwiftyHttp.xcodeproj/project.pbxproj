@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3ED0981C1DCEB02D00B8714E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0981B1DCEB02D00B8714E /* README.md */; };
+		B57041911F45E45E0068A8FD /* SwiftyHttp.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B57041901F45E45E0068A8FD /* SwiftyHttp.podspec */; };
 		B5AEBD1B1F45B2CF00F15403 /* SHDataTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBD131F45B2CF00F15403 /* SHDataTaskService.swift */; };
 		B5AEBD1C1F45B2CF00F15403 /* SHExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBD141F45B2CF00F15403 /* SHExtensions.swift */; };
 		B5AEBD1D1F45B2CF00F15403 /* SHFileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBD151F45B2CF00F15403 /* SHFileService.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		18F904791C7E243D00FA7B6B /* SwiftyHttp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyHttp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED0981B1DCEB02D00B8714E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B57041901F45E45E0068A8FD /* SwiftyHttp.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftyHttp.podspec; sourceTree = "<group>"; };
 		B5AEBD111F45B2BF00F15403 /* SwiftyHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyHttp.h; path = SwiftyHttp/SwiftyHttp.h; sourceTree = "<group>"; };
 		B5AEBD131F45B2CF00F15403 /* SHDataTaskService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHDataTaskService.swift; path = SwiftyHttp/SHDataTaskService.swift; sourceTree = SOURCE_ROOT; };
 		B5AEBD141F45B2CF00F15403 /* SHExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHExtensions.swift; path = SwiftyHttp/SHExtensions.swift; sourceTree = SOURCE_ROOT; };
@@ -47,6 +49,7 @@
 		18F9046F1C7E243D00FA7B6B = {
 			isa = PBXGroup;
 			children = (
+				B57041901F45E45E0068A8FD /* SwiftyHttp.podspec */,
 				B5AEBD111F45B2BF00F15403 /* SwiftyHttp.h */,
 				3ED0981B1DCEB02D00B8714E /* README.md */,
 				18F9047B1C7E243D00FA7B6B /* SwiftyHttp */,
@@ -148,6 +151,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57041911F45E45E0068A8FD /* SwiftyHttp.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
