@@ -134,17 +134,15 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
     
     fileprivate var _originalRequest: URLRequest?
     
-    fileprivate var boundary: String {
-        get {
-            return "unique-consistent-string" //TODO: - genarate boundary
-        }
-    }
+    fileprivate var boundary: String = ShramRequest.generateBoundary()
     
     //MARK: - Initialization
     
     public init(URL: String, method: String) {
+        
         _URL = URL
         _method = method
+        
         if (method == Method.POST || method == Method.PUT) {
             _contentType = ContentType.multipart_form_data
         }
@@ -307,7 +305,7 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
         var postString = ""
         fillPostString(&postString)
         postString = (postString as NSString).substring(to: (postString as NSString).length - 1)
-        _originalRequest!.httpBody = postString.data(using: String.Encoding.utf8) //TODO: handle IOS version since 8.0
+        _originalRequest!.httpBody = postString.data(using: String.Encoding.utf8)
     }
     
     fileprivate func fillPostString(_ postString: inout String) {
@@ -360,18 +358,26 @@ public struct ShramRequest: ShramRequestConfigure, ShramOriginalRequest {
             else { NSLog("appendMultipartBody err"); return /*TODO: handle error*/ }
         
         let mimeType = ShramMIMETypesService.sharedInstance().mimeTypeForURL(URL)
-        body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(URL.lastPathComponent)\"\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
-        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(URL.lastPathComponent)\"\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: String.Encoding.utf8)!)
         body.append(fileData)
-        body.append("\r\n\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        body.append("\r\n\r\n".data(using: String.Encoding.utf8)!)
     }
     
     fileprivate func appendMultipartBody(body: NSMutableData, name: String, value: AnyObject) {
-        body.append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
-        body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        
+        body.append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)
     }
     
     fileprivate func setBoundary(toBody body: NSMutableData) {
-        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)//TODO: handle IOS version since 8.0
+        
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+    }
+    
+    //MARK: - Boundary creation
+    fileprivate static func generateBoundary() -> String {
+        
+        return "Http.Request.Buoundary-\(Date().timeIntervalSince1970)"
     }
 }

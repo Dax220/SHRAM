@@ -1,8 +1,9 @@
 import Foundation
 
-open class ShramResponse
-{    
+open class ShramResponse {
+    
     public var JSON: Any? {
+        
         get {
             switch _JSON {
             case _ as [Any]:
@@ -15,13 +16,14 @@ open class ShramResponse
         }
     }
     
-    fileprivate var _JSON: Any?
-    
     public var statusCode: Int? {
+        
         get {
             return (response as? HTTPURLResponse)?.statusCode
         }
     }
+    
+    fileprivate var _JSON: Any?
     
     fileprivate let response: URLResponse?
     

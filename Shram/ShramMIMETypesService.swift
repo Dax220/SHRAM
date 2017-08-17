@@ -5,30 +5,31 @@ import Foundation
     import CoreServices
 #endif
 
-internal class ShramMIMETypesService
-{    
+internal class ShramMIMETypesService {
+    
     static let shramMimeType = ShramMIMETypesService()
     
-    static func sharedInstance() -> ShramMIMETypesService
-    {
+    static func sharedInstance() -> ShramMIMETypesService {
+        
         return shramMimeType
     }
     
-    internal func mimeTypeForURL(_ fileURL: URL) -> String
-    {
+    internal func mimeTypeForURL(_ fileURL: URL) -> String {
+        
         let pathExtension = fileURL.pathExtension
         return pathExtension == "" ? "application/octet-stream" : mimeTypeForPathExtension(pathExtension)
     }
 
-    fileprivate func mimeTypeForPathExtension(_ pathExtension: String) -> String
-    {
+    fileprivate func mimeTypeForPathExtension(_ pathExtension: String) -> String {
+        
         guard
             let id = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as CFString, nil)?.takeRetainedValue(),
             let contentType = UTTypeCopyPreferredTagWithClass(id, kUTTagClassMIMEType)?.takeRetainedValue()
-            else
-        {
+            else {
+                
             return "application/octet-stream"
         }
+        
         return contentType as String
     }
 }
