@@ -25,7 +25,7 @@ private struct AvailableContentTypes {
     static let MULTIPART_FORM_DATA = "multipart/form-data;"
 }
 
-fileprivate protocol SHRequestConfigure {
+protocol SHRequestConfigure {
     
     var requestURL: String! {get set}
     
@@ -42,12 +42,12 @@ fileprivate protocol SHRequestConfigure {
     var timeOut: TimeInterval {get set}
 }
 
-fileprivate protocol SHOriginalRequest {
+protocol SHOriginalRequest {
     
     var originalRequest: URLRequest! {get}
 }
 
-public class SHRequest: SHRequestConfigure, SHOriginalRequest {
+open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     public var requestURL: String! {
         get {
