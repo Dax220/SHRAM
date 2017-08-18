@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyJSON
 
 public let SHJSON = SHJSONJSONManager()
 
@@ -37,34 +38,9 @@ open class SHJSONJSONManager {
         return JSON
     }
     
-    internal func createJSONObjectFrom(_ incomingData: Data) -> Any? {
+    internal func createJSONObjectFrom(_ incomingData: Data) -> JSON? {
         
-        var JSONObject: Any?
-        
-        do {
-            
-            JSONObject = try JSONSerialization.jsonObject(with: incomingData, options: .allowFragments)
-            
-            switch JSONObject {
-                
-            case _ as [String : Any]:
-                
-                JSONObject = JSONObject as! [String : Any]
-                
-            case _ as [Any]:
-                
-                JSONObject = JSONObject as! [Any]
-                
-            default:
-                break
-            }
-        }
-        catch let error {
-            
-            NSLog("JSON error = \(error)")//TODO: Add to Errors
-        }
-        
-        return JSONObject
+        return JSON(incomingData)
     }
     
     fileprivate func parseDictionary(dictionary: [String: AnyObject], parentKey: String, toJSON JSON: inout [String : AnyObject]) {

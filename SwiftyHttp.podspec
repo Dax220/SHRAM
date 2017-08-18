@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftyHttp'
-  s.version          = ‘1.0’
+  s.version          = '1.1'
   s.summary          = 'Simple Http Requests'
-a
+
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
@@ -30,7 +30,7 @@ SwiftyHttp - is easy to use but powerful framework for communication with RESTfu
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = ‘SwiftyHttp/*’
+  s.source_files = 'SwiftyHttp/*'
   s.dependency 'SwiftyJSON'
 
 end
