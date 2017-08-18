@@ -134,7 +134,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     fileprivate var _originalRequest: URLRequest?
     
-    fileprivate var boundary: String = SHRequest.generateBoundary()
+    fileprivate var boundary: String = ""
     
     //MARK: - Initialization
     
@@ -144,7 +144,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         _method = method
         
         if (method == Method.POST || method == Method.PUT) {
-            _contentType = ContentType.multipart_form_data
+            _contentType = ContentType.urlencoded
         }
     }
     
@@ -154,13 +154,6 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
                   headers: [String: String]?,
                   parseKeys: [String]? = nil) {
         
-        var finalURL = URL
-        
-        if (method == Method.GET || method == Method.DELETE) && params != nil {
-            finalURL += params!.stringFromHttpParameters()
-        }
-        
-        _URL = finalURL
         _method = method
         _params = params
         _headers = headers
@@ -191,49 +184,8 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         setHTTPHeaders()
     }
     
-    //MARK: - Send configured request
-    @discardableResult
-    public func send(completion: SuccessHTTPCallBack? = nil,
-                     failure: FailureHTTPCallBack? = nil) -> URLSessionDataTask {
-        
-        configureRequest()
-        
-        let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: self, completion: completion, failure: failure)
-        dataTask.resume()
-        return dataTask
-    }
     
-    @discardableResult
-    public func download(completion: DownloadCompletion? = nil,
-                         progress: ProgressCallBack? = nil,
-                         failure: FailureHTTPCallBack?  = nil) -> URLSessionDownloadTask {
-        
-        configureRequest()
-        
-        let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: self,
-                                                                           completion: completion,
-                                                                           progress: progress,
-                                                                           failure: failure)
-        downloadTask.resume()
-        return downloadTask
-    }
-    
-    @discardableResult
-    public func upload(completion: UploadCompletion? = nil,
-                       progress: ProgressCallBack? = nil,
-                       failure: FailureHTTPCallBack? = nil) -> URLSessionUploadTask {
-        
-        configureRequest()
-        
-        let uploadTask = SHDataTaskManager.createUploadTaskWithRequest(request: self,
-                                                                       completion: completion,
-                                                                       progress: progress,
-                                                                       failure: failure)
-        uploadTask.resume()
-        return uploadTask
-    }
-    
-    fileprivate func configureRequest() {
+    internal func configureRequest() {
         
         if (_method == Method.GET || _method == Method.DELETE) {
             if (_params != nil) {
@@ -276,6 +228,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
             
         case .multipart_form_data:
             
+            boundary = generateBoundary()
             setMultipartData()
             _originalRequest!.setValue(AvailableContentTypes.MULTIPART_FORM_DATA + " boundary=\(boundary)", forHTTPHeaderField: "Content-type")
         }
@@ -376,7 +329,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     }
     
     //MARK: - Boundary creation
-    fileprivate static func generateBoundary() -> String {
+    fileprivate func generateBoundary() -> String {
         
         return "Http.Request.Buoundary-\(Date().timeIntervalSince1970)"
     }

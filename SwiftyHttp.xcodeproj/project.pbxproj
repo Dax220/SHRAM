@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3ED0981C1DCEB02D00B8714E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0981B1DCEB02D00B8714E /* README.md */; };
 		7040EF8BCA33D6D5D5AE2593 /* Pods_SwiftyHttp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BB3875511F8CABB7B64913 /* Pods_SwiftyHttp.framework */; };
+		B50DDD1D1F47731A00210BA6 /* SHDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50DDD1C1F47731A00210BA6 /* SHDownloadRequest.swift */; };
+		B50DDD1F1F47739800210BA6 /* SHUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50DDD1E1F47739800210BA6 /* SHUploadRequest.swift */; };
+		B50DDD211F4777AB00210BA6 /* SHDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50DDD201F4777AB00210BA6 /* SHDataRequest.swift */; };
 		B57041911F45E45E0068A8FD /* SwiftyHttp.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B57041901F45E45E0068A8FD /* SwiftyHttp.podspec */; };
 		B5AEBD1B1F45B2CF00F15403 /* SHDataTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBD131F45B2CF00F15403 /* SHDataTaskService.swift */; };
 		B5AEBD1C1F45B2CF00F15403 /* SHExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AEBD141F45B2CF00F15403 /* SHExtensions.swift */; };
@@ -26,6 +29,9 @@
 		3ED0981B1DCEB02D00B8714E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5C9953B08D600B84B394B54F /* Pods-SwiftyHttp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyHttp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyHttp/Pods-SwiftyHttp.debug.xcconfig"; sourceTree = "<group>"; };
 		77BB3875511F8CABB7B64913 /* Pods_SwiftyHttp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftyHttp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50DDD1C1F47731A00210BA6 /* SHDownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHDownloadRequest.swift; path = SwiftyHttp/SHDownloadRequest.swift; sourceTree = SOURCE_ROOT; };
+		B50DDD1E1F47739800210BA6 /* SHUploadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHUploadRequest.swift; path = SwiftyHttp/SHUploadRequest.swift; sourceTree = SOURCE_ROOT; };
+		B50DDD201F4777AB00210BA6 /* SHDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHDataRequest.swift; path = SwiftyHttp/SHDataRequest.swift; sourceTree = SOURCE_ROOT; };
 		B57041901F45E45E0068A8FD /* SwiftyHttp.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftyHttp.podspec; sourceTree = "<group>"; };
 		B5AEBD111F45B2BF00F15403 /* SwiftyHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyHttp.h; path = SwiftyHttp/SwiftyHttp.h; sourceTree = "<group>"; };
 		B5AEBD131F45B2CF00F15403 /* SHDataTaskService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHDataTaskService.swift; path = SwiftyHttp/SHDataTaskService.swift; sourceTree = SOURCE_ROOT; };
@@ -81,6 +87,9 @@
 				B5AEBD161F45B2CF00F15403 /* SHJSON.swift */,
 				B5AEBD171F45B2CF00F15403 /* SHMIMETypesService.swift */,
 				B5AEBD181F45B2CF00F15403 /* SHRequest.swift */,
+				B50DDD201F4777AB00210BA6 /* SHDataRequest.swift */,
+				B50DDD1C1F47731A00210BA6 /* SHDownloadRequest.swift */,
+				B50DDD1E1F47739800210BA6 /* SHUploadRequest.swift */,
 				B5AEBD191F45B2CF00F15403 /* SHResponse.swift */,
 				B5AEBD1A1F45B2CF00F15403 /* SwiftyHttp.swift */,
 			);
@@ -227,9 +236,12 @@
 				B5AEBD201F45B2CF00F15403 /* SHRequest.swift in Sources */,
 				B5AEBD1B1F45B2CF00F15403 /* SHDataTaskService.swift in Sources */,
 				B5AEBD211F45B2CF00F15403 /* SHResponse.swift in Sources */,
+				B50DDD1D1F47731A00210BA6 /* SHDownloadRequest.swift in Sources */,
 				B5AEBD1D1F45B2CF00F15403 /* SHFileService.swift in Sources */,
+				B50DDD211F4777AB00210BA6 /* SHDataRequest.swift in Sources */,
 				B5AEBD221F45B2CF00F15403 /* SwiftyHttp.swift in Sources */,
 				B5AEBD1C1F45B2CF00F15403 /* SHExtensions.swift in Sources */,
+				B50DDD1F1F47739800210BA6 /* SHUploadRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
