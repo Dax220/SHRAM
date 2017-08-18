@@ -47,7 +47,7 @@ fileprivate protocol SHOriginalRequest {
     var originalRequest: URLRequest! {get}
 }
 
-public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
+public class SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     public var requestURL: String! {
         get {
@@ -193,8 +193,8 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     //MARK: - Send configured request
     @discardableResult
-    public mutating func send(completion: SuccessHTTPCallBack? = nil,
-                              failure: FailureHTTPCallBack? = nil) -> URLSessionDataTask {
+    public func send(completion: SuccessHTTPCallBack? = nil,
+                     failure: FailureHTTPCallBack? = nil) -> URLSessionDataTask {
         
         configureRequest()
         
@@ -204,9 +204,9 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     }
     
     @discardableResult
-    public mutating func download(completion: DownloadCompletion? = nil,
-                                  progress: ProgressCallBack? = nil,
-                                  failure: FailureHTTPCallBack?  = nil) -> URLSessionDownloadTask {
+    public func download(completion: DownloadCompletion? = nil,
+                         progress: ProgressCallBack? = nil,
+                         failure: FailureHTTPCallBack?  = nil) -> URLSessionDownloadTask {
         
         configureRequest()
         
@@ -219,9 +219,9 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     }
     
     @discardableResult
-    public mutating func upload(completion: UploadCompletion? = nil,
-                                progress: ProgressCallBack? = nil,
-                                failure: FailureHTTPCallBack? = nil) -> URLSessionUploadTask {
+    public func upload(completion: UploadCompletion? = nil,
+                       progress: ProgressCallBack? = nil,
+                       failure: FailureHTTPCallBack? = nil) -> URLSessionUploadTask {
         
         configureRequest()
         
@@ -233,7 +233,7 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
         return uploadTask
     }
     
-    fileprivate mutating func configureRequest() {
+    fileprivate func configureRequest() {
         
         if (_method == Method.GET || _method == Method.DELETE) {
             if (_params != nil) {
@@ -256,7 +256,7 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     
     //MARK: - Setting request parameters
-    fileprivate mutating func setParametersWithContentType() {
+    fileprivate func setParametersWithContentType() {
     
         guard let cType = _contentType else {
             return
@@ -282,7 +282,7 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     }
     
     //MARK: - Setting Headers
-    fileprivate mutating func setHTTPHeaders() {
+    fileprivate func setHTTPHeaders() {
         
         guard let headers = _headers else {
             return
@@ -294,7 +294,7 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     }
     
     //MARK: - Setting urlencoded Data
-    fileprivate mutating func setUrlencodedData() {
+    fileprivate func setUrlencodedData() {
         
         guard _params != nil && (_params?.count)! > 0 else {
             return
@@ -316,7 +316,7 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     }
     
     //MARK: - Setting JSON
-    fileprivate mutating func setJsonData() {
+    fileprivate func setJsonData() {
         
         if let object = _params {
             _originalRequest!.httpBody = SHJSON.createJSONData(fromObject: object as AnyObject) as Data?
@@ -326,7 +326,7 @@ public struct SHRequest: SHRequestConfigure, SHOriginalRequest {
     }
     
     //MARK: - Setting Multipart Data
-    fileprivate mutating func setMultipartData() {
+    fileprivate func setMultipartData() {
         
         guard _params != nil && (_params?.count)! > 0 else { return }
         
