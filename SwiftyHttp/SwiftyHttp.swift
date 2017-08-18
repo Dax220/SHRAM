@@ -390,5 +390,18 @@ open class SwiftyHttpManager: NSObject
             
         return downloadTask
     }
+    
+    @discardableResult
+    open func send
+        (dataRequest: SHDataRequest,
+         completion: @escaping SuccessHTTPCallBack,
+         failure: @escaping FailureHTTPCallBack) -> URLSessionDataTask {
+        
+        dataRequest.configureRequest()
+        let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: dataRequest, completion: completion, failure: failure)
+        dataTask.resume()
+        
+        return dataTask
+    }
 }
 
