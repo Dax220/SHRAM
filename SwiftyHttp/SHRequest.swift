@@ -187,15 +187,14 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     internal func configureRequest() {
         
+        var finalURL: String = _URL
         if (_method == Method.GET || _method == Method.DELETE) {
             if (_params != nil) {
-                var finalURL: String = _URL
                 finalURL += _params!.stringFromHttpParameters()
-                _URL = finalURL
             }
         }
         
-        _originalRequest = URLRequest(url: Foundation.URL(string: _URL)!, cachePolicy: .useProtocolCachePolicy)
+        _originalRequest = URLRequest(url: Foundation.URL(string: finalURL)!, cachePolicy: .useProtocolCachePolicy)
         _originalRequest?.httpMethod = _method
         _originalRequest?.timeoutInterval = _timeOut
         
