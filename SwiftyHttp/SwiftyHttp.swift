@@ -67,7 +67,7 @@ open class SwiftyHttpManager: NSObject
          failure: @escaping FailureHTTPCallBack)
         -> URLSessionDataTask {
             
-        let request = SHRequest(URL: URL, method: Method.POST, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
+        let request = SHRequest(URL: URL, method: .post, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
         let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
             
@@ -131,7 +131,7 @@ open class SwiftyHttpManager: NSObject
          failure: @escaping FailureHTTPCallBack)
         -> URLSessionDataTask {
             
-        let request = SHRequest(URL: URL, method:  Method.GET, params: params, headers: headers, parseKeys: parseKeys)
+        let request = SHRequest(URL: URL, method: .get, params: params, headers: headers, parseKeys: parseKeys)
         let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
             
@@ -201,7 +201,7 @@ open class SwiftyHttpManager: NSObject
          failure: @escaping FailureHTTPCallBack)
         -> URLSessionDataTask {
             
-        let request = SHRequest(URL: URL, method: Method.PUT, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
+        let request = SHRequest(URL: URL, method: .put, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
         let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
             
@@ -265,7 +265,7 @@ open class SwiftyHttpManager: NSObject
          failure: @escaping FailureHTTPCallBack)
         -> URLSessionDataTask {
             
-        let request = SHRequest(URL: URL, method:  Method.DELETE, params: params, headers: headers, parseKeys: parseKeys)
+        let request = SHRequest(URL: URL, method: .delete, params: params, headers: headers, parseKeys: parseKeys)
         let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
         dataTask.resume()
         
@@ -325,11 +325,30 @@ open class SwiftyHttpManager: NSObject
          failure: @escaping FailureHTTPCallBack)
         -> URLSessionUploadTask {
             
-        let request = SHRequest(URL: URL, method: Method.POST, params: params, contentType: .multipart_form_data, headers: headers)
+        let request = SHRequest(URL: URL, method: .post, params: params, contentType: .multipart_form_data, headers: headers)
         let uploadTask = SHDataTaskManager.createUploadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
         uploadTask.resume()
             
         return uploadTask
+    }
+    
+    //MARK: - PATCH Method
+    @discardableResult
+    open func PATCH
+        (_ URL: String,
+         params: [String: AnyObject]?,
+         contentType: ContentType,
+         headers: [String: String]? = nil,
+         withParseKeys parseKeys: [String]? = nil,
+         completion: @escaping SuccessHTTPCallBack,
+         failure: @escaping FailureHTTPCallBack)
+        -> URLSessionDataTask {
+            
+            let request = SHRequest(URL: URL, method: .patch, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
+            let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: request, completion: completion, failure: failure)
+            dataTask.resume()
+            
+            return dataTask
     }
     
     //MARK: - Download File
@@ -384,7 +403,7 @@ open class SwiftyHttpManager: NSObject
          failure: @escaping FailureHTTPCallBack)
         -> URLSessionDownloadTask {
             
-        let request = SHRequest(URL: URL, method: Method.GET, params: params, contentType: .multipart_form_data, headers: headers)
+        let request = SHRequest(URL: URL, method: .get, params: params, contentType: .multipart_form_data, headers: headers)
         let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
         downloadTask.resume()
             

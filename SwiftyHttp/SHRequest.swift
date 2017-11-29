@@ -1,12 +1,13 @@
 import Foundation
 
 //MARK: - Request HTTP Methods Struct
-public struct Method {
+public enum SHMethod: String {
     
-    static let GET = "GET"
-    static let PUT = "PUT"
-    static let POST = "POST"
-    static let DELETE = "DELETE"
+    case get = "GET"
+    case put = "PUT"
+    case post = "POST"
+    case delete = "DELETE"
+    case patch = "PATCH"
 }
 
 //MARK: - Request content type enum
@@ -29,7 +30,7 @@ protocol SHRequestConfigure {
     
     var requestURL: String! {get set}
     
-    var method: String! {get set}
+    var method: SHMethod! {get set}
     
     var parameters: [String : AnyObject]? {get set}
     
@@ -58,7 +59,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         }
     }
     
-    public var method: String! {
+    public var method: SHMethod! {
         get {
             return _method
         }
@@ -120,7 +121,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     fileprivate var _URL: String!
     
-    fileprivate var _method: String!
+    fileprivate var _method: SHMethod!
     
     fileprivate var _params: [String : AnyObject]?
     
@@ -138,18 +139,18 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     //MARK: - Initialization
     
-    public init(URL: String, method: String) {
+    public init(URL: String, method: SHMethod) {
         
         _URL = URL
         _method = method
         
-        if (method == Method.POST || method == Method.PUT) {
+        if (method == .post || method == .put || method == .patch) {
             _contentType = ContentType.urlencoded
         }
     }
     
     internal init(URL: String,
-                  method: String,
+                  method: SHMethod,
                   params: [String: AnyObject]?,
                   headers: [String: String]?,
                   parseKeys: [String]? = nil) {
@@ -159,13 +160,13 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         _headers = headers
         _parseKeys = parseKeys
         _originalRequest = URLRequest(url: Foundation.URL(string: _URL)!, cachePolicy: .useProtocolCachePolicy)
-        _originalRequest!.httpMethod = _method
+        _originalRequest!.httpMethod = _method.rawValue
         
         setHTTPHeaders()
     }
     
     internal init(URL: String,
-                  method: String,
+                  method: SHMethod,
                   params: [String: AnyObject]?,
                   contentType: ContentType,
                   headers: [String : String]?,
@@ -178,7 +179,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         _headers = headers
         _parseKeys = parseKeys
         _originalRequest = URLRequest(url: Foundation.URL(string: _URL)!, cachePolicy: .useProtocolCachePolicy)
-        _originalRequest!.httpMethod = _method
+        _originalRequest!.httpMethod = _method.rawValue
         
         setParametersWithContentType()
         setHTTPHeaders()
@@ -188,17 +189,17 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     internal func configureRequest() {
         
         var finalURL: String = _URL
-        if (_method == Method.GET || _method == Method.DELETE) {
+        if (_method == .get || _method == .delete) {
             if (_params != nil) {
                 finalURL += _params!.stringFromHttpParameters()
             }
         }
         
         _originalRequest = URLRequest(url: Foundation.URL(string: finalURL)!, cachePolicy: .useProtocolCachePolicy)
-        _originalRequest?.httpMethod = _method
+        _originalRequest?.httpMethod = _method.rawValue
         _originalRequest?.timeoutInterval = _timeOut
         
-        if (_method == Method.POST || _method == Method.PUT) {
+        if (_method == .post || _method == .put || method == .patch) {
             setParametersWithContentType()
         }
         
