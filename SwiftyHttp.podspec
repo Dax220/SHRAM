@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftyHttp'
-  s.version          = '1.7'
+  s.version          = '2.0'
   s.summary          = 'Simple Http Requests'
 
 # This description is used to generate tags and improve search results.
