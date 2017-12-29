@@ -128,7 +128,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     fileprivate var _contentType: ContentType?
     
     fileprivate var _headers: [String : String]?
-
+    
     fileprivate var _parseKeys: [String]?
     
     fileprivate var _timeOut: TimeInterval = 30.0
@@ -155,14 +155,13 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
                   headers: [String: String]?,
                   parseKeys: [String]? = nil) {
         
+        _URL = URL
         _method = method
         _params = params
         _headers = headers
         _parseKeys = parseKeys
-        _originalRequest = URLRequest(url: Foundation.URL(string: _URL)!, cachePolicy: .useProtocolCachePolicy)
-        _originalRequest!.httpMethod = _method.rawValue
         
-        setHTTPHeaders()
+        configureRequest()
     }
     
     internal init(URL: String,
@@ -178,11 +177,8 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         _contentType = contentType
         _headers = headers
         _parseKeys = parseKeys
-        _originalRequest = URLRequest(url: Foundation.URL(string: _URL)!, cachePolicy: .useProtocolCachePolicy)
-        _originalRequest!.httpMethod = _method.rawValue
         
-        setParametersWithContentType()
-        setHTTPHeaders()
+        configureRequest()
     }
     
     
@@ -209,7 +205,7 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
     
     //MARK: - Setting request parameters
     fileprivate func setParametersWithContentType() {
-    
+        
         guard let cType = _contentType else {
             return
         }
@@ -294,13 +290,28 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         
         for (key, value) in _params! {
             setBoundary(toBody: body)
-            if let filePath = SHFileManager.checkPathForResource(value) {
+            if let val = value as? UIImage {
+                appendMultipartBody(body: body, name: key, image: val)
+            } else if let filePath = SHFileManager.checkPathForResource(value) {
                 appendMultipartBodyWithFile(body: body, name: key, pathForResource: filePath)
             } else {
                 appendMultipartBody(body: body, name: key, value: value)
             }
         }
         setBoundary(toBody: body)
+    }
+    
+    fileprivate func appendMultipartBody(body: NSMutableData, name: String, image: UIImage) {
+        
+        guard
+            let fileData = UIImageJPEGRepresentation(image, 1)
+            else { NSLog("appendMultipartBody err"); return /*TODO: handle error*/ }
+        
+        let mimeType = "image/jpeg"
+        body.append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(name + "_\(Date().timeIntervalSince1970)")\"\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append(fileData)
+        body.append("\r\n\r\n".data(using: String.Encoding.utf8)!)
     }
     
     fileprivate func appendMultipartBodyWithFile(body: NSMutableData, name: String, pathForResource: String) {
