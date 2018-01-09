@@ -10,7 +10,7 @@ import Foundation
 
 open class SHDownloadRequest: SHRequest {
     
-    public var downloadSuccess: DownloadCompletion?
+    public var success: DownloadCompletion?
     public var progress: ProgressCallBack?
     public var failure: FailureHTTPCallBack?
     
@@ -20,19 +20,19 @@ open class SHDownloadRequest: SHRequest {
         configureRequest()
         
         let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: self,
-                                                                           completion: downloadSuccess,
-                                                                           progress: self.progress,
-                                                                           failure: self.failure)
+                                                                           completion: success,
+                                                                           progress: progress,
+                                                                           failure: failure)
         downloadTask.resume()
         return downloadTask
     }
     
     @discardableResult
-    public func download(completion: DownloadCompletion? = nil,
+    public func download(success: DownloadCompletion? = nil,
                          progress: ProgressCallBack? = nil,
                          failure: FailureHTTPCallBack?  = nil) -> URLSessionDownloadTask {
         
-        downloadSuccess = completion
+        self.success = success
         self.progress = progress
         self.failure = failure
         

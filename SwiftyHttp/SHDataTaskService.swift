@@ -26,18 +26,18 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
         
         if let request = downloadTask.callBackHandler?.request {
             
-            let dzenResponse = SHResponse(response: downloadTask.response, parseKeys: request.parseKeys)
+            let shResponse = SHResponse(response: downloadTask.response, parseKeys: request.parseKeys)
             
             guard let response = downloadTask.response as? HTTPURLResponse else {
-                downloadTask.callBackHandler?.error?(request, nil, dzenResponse)
+                downloadTask.callBackHandler?.error?(request, nil, shResponse)
                 return
             }
             
             switch response.statusCode {
             case 200..<400:
-                downloadTask.callBackHandler?.downloadCompletion?(location, dzenResponse)
+                downloadTask.callBackHandler?.downloadCompletion?(location, shResponse)
             case 400...500:
-                downloadTask.callBackHandler?.error?(request, nil, dzenResponse) //TODO: handle error and add to Errors
+                downloadTask.callBackHandler?.error?(request, nil, shResponse)
             default:
                 break
             }
@@ -48,18 +48,18 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
         
         if let request = downloadTask.callBackHandler?.request {
             
-            let dzenResponse = SHResponse(response: downloadTask.response, parseKeys: request.parseKeys)
+            let shResponse = SHResponse(response: downloadTask.response, parseKeys: request.parseKeys)
             
             guard let response = downloadTask.response as? HTTPURLResponse else {
-                downloadTask.callBackHandler?.error?(request, nil, dzenResponse)
+                downloadTask.callBackHandler?.error?(request, nil, shResponse)
                 return
             }
             
             switch response.statusCode {
             case 200..<400:
-                downloadTask.callBackHandler?.progress?(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, dzenResponse)
+                downloadTask.callBackHandler?.progress?(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, shResponse)
             case 400...500:
-                downloadTask.callBackHandler?.error?(request, nil, dzenResponse) //TODO: handle error and add to Errors
+                downloadTask.callBackHandler?.error?(request, nil, shResponse)
             default:
                 break
             }
@@ -70,18 +70,32 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
         
         if let request = task.callBackHandler?.request {
             
-            let dzenResponse = SHResponse(response: task.response, parseKeys: request.parseKeys)
+            guard let response = task.response as? HTTPURLResponse else {
+                task.callBackHandler?.error?(request, error, nil)
+                return
+            }
+            
+            let shResponse = SHResponse(response: response, parseKeys: request.parseKeys)
             
             if task is URLSessionUploadTask {
                 
                 if (error == nil) {
-                    task.callBackHandler?.uploadCompletion?(dzenResponse)
+                    
+                    switch response.statusCode {
+                    case 200..<400:
+                        task.callBackHandler?.uploadCompletion?(shResponse)
+                    case 400...500:
+                        task.callBackHandler?.error?(request, error, shResponse)
+                    default:
+                        break
+                    }
+                    
                 } else {
-                    task.callBackHandler?.error?((task.callBackHandler?.request)!, error as NSError?, dzenResponse)
+                    task.callBackHandler?.error?(request, error, shResponse)
                 }
                 
             } else if task is URLSessionDownloadTask, let error = error {
-                task.callBackHandler?.error?((task.callBackHandler?.request)!, error as NSError?, dzenResponse)
+                task.callBackHandler?.error?(request, error, shResponse)
             }
         }
     }
@@ -91,9 +105,9 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
         
         if let request = task.callBackHandler?.request {
          
-            let dzenResponse = SHResponse(response: task.response, parseKeys: request.parseKeys)
+            let shResponse = SHResponse(response: task.response, parseKeys: request.parseKeys)
             
-            task.callBackHandler?.progress?(bytesSent, totalBytesSent, totalBytesExpectedToSend, dzenResponse)
+            task.callBackHandler?.progress?(bytesSent, totalBytesSent, totalBytesExpectedToSend, shResponse)
         
         }
     }
@@ -104,23 +118,23 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
         
         return urlSession.dataTask(with: request.originalRequest) { (data, resp, err) in
             
-            let dzenResponse = SHResponse(data: data, response: resp, parseKeys: request.parseKeys)
+            let shResponse = SHResponse(data: data, response: resp, parseKeys: request.parseKeys)
             
             guard err == nil else {
-                failure?(request, err, dzenResponse)
+                failure?(request, err, shResponse)
                 return
             }
             
             guard let response = resp as? HTTPURLResponse else {
-                failure?(request, nil, dzenResponse) //TODO: handle error and add to Errors
+                failure?(request, nil, shResponse)
                 return
             }
             
             switch response.statusCode {
             case 200..<400:
-                completion?(request, data, dzenResponse)
+                completion?(request, data, shResponse)
             case 400...500:
-                failure?(request, err, dzenResponse) //TODO: handle error and add to Errors
+                failure?(request, err, shResponse)
             default:
                 break
             }

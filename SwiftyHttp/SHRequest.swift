@@ -269,8 +269,6 @@ open class SHRequest: SHRequestConfigure, SHOriginalRequest {
         
         if let object = _params {
             _originalRequest!.httpBody = SHJSON.createJSONData(fromObject: object as AnyObject) as Data?
-        } else {
-            //TODO: Handle error and add to Error
         }
     }
     

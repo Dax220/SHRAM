@@ -8,9 +8,9 @@
 
 import Foundation
 
-open class SHUpRequest: SHRequest {
+open class SHUploadRequest: SHRequest {
     
-    public var uploadSuccess: UploadCompletion?
+    public var success: UploadCompletion?
     public var progress: ProgressCallBack?
     public var failure: FailureHTTPCallBack?
     
@@ -20,9 +20,9 @@ open class SHUpRequest: SHRequest {
         configureRequest()
         
         let uploadTask = SHDataTaskManager.createUploadTaskWithRequest(request: self,
-                                                                       completion: uploadSuccess,
-                                                                       progress: self.progress,
-                                                                       failure: self.failure)
+                                                                       completion: success,
+                                                                       progress: progress,
+                                                                       failure: failure)
         uploadTask.resume()
         return uploadTask
     }
@@ -32,7 +32,7 @@ open class SHUpRequest: SHRequest {
                        progress: ProgressCallBack? = nil,
                        failure: FailureHTTPCallBack? = nil) -> URLSessionUploadTask {
         
-        uploadSuccess = completion
+        self.success = completion
         self.progress = progress
         self.failure = failure
         

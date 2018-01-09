@@ -58,13 +58,13 @@ open class SwiftyHttpManager: NSObject
      */
     @discardableResult
     open func POST
-        (_ URL: String,
+        (URL: String,
          params: [String: AnyObject]?,
          contentType: ContentType,
          headers: [String: String]? = nil,
          withParseKeys parseKeys: [String]? = nil,
-         completion: @escaping SuccessHTTPCallBack,
-         failure: @escaping FailureHTTPCallBack)
+         completion: SuccessHTTPCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
         -> URLSessionDataTask {
             
         let request = SHRequest(URL: URL, method: .post, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
@@ -123,12 +123,12 @@ open class SwiftyHttpManager: NSObject
      */
     @discardableResult
     open func GET
-        (_ URL: String,
+        (URL: String,
          params: [String: AnyObject]? = nil,
          headers: [String: String]? = nil,
          withParseKeys parseKeys: [String]? = nil,
-         completion: @escaping SuccessHTTPCallBack,
-         failure: @escaping FailureHTTPCallBack)
+         completion: SuccessHTTPCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
         -> URLSessionDataTask {
             
         let request = SHRequest(URL: URL, method: .get, params: params, headers: headers, parseKeys: parseKeys)
@@ -192,13 +192,13 @@ open class SwiftyHttpManager: NSObject
      */
     @discardableResult
     open func PUT
-        (_ URL: String,
+        (URL: String,
          params: [String: AnyObject]?,
          contentType: ContentType,
          headers: [String: String]? = nil,
          withParseKeys parseKeys: [String]? = nil,
-         completion: @escaping SuccessHTTPCallBack,
-         failure: @escaping FailureHTTPCallBack)
+         completion: SuccessHTTPCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
         -> URLSessionDataTask {
             
         let request = SHRequest(URL: URL, method: .put, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
@@ -257,12 +257,12 @@ open class SwiftyHttpManager: NSObject
      */
     @discardableResult
     open func DELETE
-        (_ URL: String,
+        (URL: String,
          params: [String: AnyObject]? = nil,
          headers: [String: String]? = nil,
          withParseKeys parseKeys: [String]? = nil,
-         completion: @escaping SuccessHTTPCallBack,
-         failure: @escaping FailureHTTPCallBack)
+         completion: SuccessHTTPCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
         -> URLSessionDataTask {
             
         let request = SHRequest(URL: URL, method: .delete, params: params, headers: headers, parseKeys: parseKeys)
@@ -272,76 +272,16 @@ open class SwiftyHttpManager: NSObject
         return dataTask
     }
     
-    //MARK: - Upload File
-    /**
-     Uploads file to server.
-     
-            SwiftyHttp.uploadWithProgress("http://www.sample.com/api/method",
-                                     params: params,
-                                     headers: headers,
-                                     completion: {
-     
-                 }
-                                     progress: { (bytesSent, totalBytesSent, totalBytesExpectedToSend, response) in
-     
-     
-                 },
-                                     failure: { (request, error, response) in
-     
-                 }
-             )
-     
-     - parameter URL: String value of API method.
-     - parameter params: Dictionary where the key is a server parameter and value is the parameter that should be sent.
-     - parameter headers: Dictionary with HTTP Headers.
-     - parameter completion: Closure is called when data was successfully uploaded.
-     
-        Returns:
-        * request: *SHRequest*
-        * data: *Data?*
-        * response: *SHResponse?*
-     - parameter progress: Closure is called each time data sends to server.
-     
-        Returns:
-        * bytesSent: *Int64*
-        * totalBytesSent: *Int64*
-        * totalBytesExpectedToSend: *Int64*
-        * response: *SHResponse*
-     - parameter failure: Closure is called when request is failed or server has responded with an error.
-     
-        Returns:
-        * request: *SHRequest*
-        * error: *Error?*
-        * response: *SHResponse?*
-     - returns: Instance of URLSessionUploadTask.
-     */
-    @discardableResult
-    open func uploadWithProgress
-        (_ URL: String,
-         params: [String: AnyObject]? = nil,
-         headers: [String: String]? = nil,
-         completion: @escaping UploadCompletion,
-         progress: @escaping ProgressCallBack,
-         failure: @escaping FailureHTTPCallBack)
-        -> URLSessionUploadTask {
-            
-        let request = SHRequest(URL: URL, method: .post, params: params, contentType: .multipart_form_data, headers: headers)
-        let uploadTask = SHDataTaskManager.createUploadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
-        uploadTask.resume()
-            
-        return uploadTask
-    }
-    
     //MARK: - PATCH Method
     @discardableResult
     open func PATCH
-        (_ URL: String,
+        (URL: String,
          params: [String: AnyObject]?,
          contentType: ContentType,
          headers: [String: String]? = nil,
          withParseKeys parseKeys: [String]? = nil,
-         completion: @escaping SuccessHTTPCallBack,
-         failure: @escaping FailureHTTPCallBack)
+         completion: SuccessHTTPCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
         -> URLSessionDataTask {
             
             let request = SHRequest(URL: URL, method: .patch, params: params, contentType: contentType, headers: headers, parseKeys: parseKeys)
@@ -351,70 +291,12 @@ open class SwiftyHttpManager: NSObject
             return dataTask
     }
     
-    //MARK: - Download File
-    /**
-     Downloads file from server.
-     
-            SwiftyHttp.downloadWithProgress("http://www.sample.com/api/method",
-                                       params: params,
-                                       headers: headers,
-                                       completion: { (didFinishDownloadingToURL) in
-     
-                 },
-                                       progress: { (bytesSent, totalBytesSent, totalBytesExpectedToSend, response) in
-     
-                 },
-                                       failure: { (request, error, response) in
-    
-                 }
-            )
-     
-     - parameter URL: String value of API method.
-     - parameter params: Dictionary where the key is a server parameter and value is the parameter that should be sent.
-     - parameter headers: Dictionary with HTTP Headers.
-     - parameter completion: Closure is called when data was downloaded.
-     
-        Returns:
-        * request: *SHRequest*
-        * data: *Data?*
-        * response: *SHResponse?*
-     - parameter progress: Closure is called each time data comes from server.
-     
-        Returns:
-        * bytesSent: *Int64*
-        * totalBytesSent: *Int64*
-        * totalBytesExpectedToSend: *Int64*
-        * response: *SHResponse*
-     - parameter failure: Closure is called when request is failed or server has responded with an error.
-
-        Returns:
-        * request: *SHRequest*
-        * error: *Error?*
-        * response: *SHResponse?*
-     - returns: Instance of URLSessionDownloadTask.
-     */
-    @discardableResult
-    open func downloadWithProgress
-        (_ URL: String,
-         params: [String: AnyObject]? = nil,
-         headers: [String: String]? = nil,
-         completion: @escaping DownloadCompletion,
-         progress: @escaping ProgressCallBack,
-         failure: @escaping FailureHTTPCallBack)
-        -> URLSessionDownloadTask {
-            
-        let request = SHRequest(URL: URL, method: .get, params: params, contentType: .multipart_form_data, headers: headers)
-        let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
-        downloadTask.resume()
-            
-        return downloadTask
-    }
-    
+    //MARK: - Sending SHDataRequest
     @discardableResult
     open func send
         (dataRequest: SHDataRequest,
-         completion: @escaping SuccessHTTPCallBack,
-         failure: @escaping FailureHTTPCallBack) -> URLSessionDataTask {
+         completion: SuccessHTTPCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil) -> URLSessionDataTask {
         
         dataRequest.configureRequest()
         let dataTask = SHDataTaskManager.createDataTaskWithRequest(request: dataRequest, completion: completion, failure: failure)
@@ -422,5 +304,110 @@ open class SwiftyHttpManager: NSObject
         
         return dataTask
     }
-}
+    
+   //MARK: - Upload process
+    @discardableResult
+    open func upload
+        (request: SHUploadRequest,
+         succeess: UploadCompletion? = nil,
+         progress: ProgressCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
+        -> URLSessionUploadTask {
+        
+            var successCallback = request.success
+            var progressCallback = request.progress
+            var failureCallback = request.failure
+            
+            if let succeess = succeess {
+                successCallback = succeess
+            }
+            
+            if let progress = progress {
+                progressCallback = progress
+            }
+            
+            if let failure = failure {
+                failureCallback = failure
+            }
+            
+            let uploadTask = SHDataTaskManager.createUploadTaskWithRequest(request: request,
+                                                                           completion: successCallback,
+                                                                           progress: progressCallback,
+                                                                           failure: failureCallback)
+            uploadTask.resume()
+            
+            return uploadTask
+    }
+    
+    @discardableResult
+    open func upload
+        (URL: String,
+         method: SHMethod,
+         contentType: ContentType = .multipart_form_data,
+         params: [String: AnyObject]? = nil,
+         headers: [String: String]? = nil,
+         completion: UploadCompletion? = nil,
+         progress: ProgressCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
+        -> URLSessionUploadTask {
 
+        let request = SHRequest(URL: URL, method: method, params: params, contentType: contentType, headers: headers)
+        let uploadTask = SHDataTaskManager.createUploadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
+        uploadTask.resume()
+
+        return uploadTask
+    }
+    
+    //MARK: - Download process
+    @discardableResult
+    open func download
+        (request: SHDownloadRequest,
+         succeess: DownloadCompletion? = nil,
+         progress: ProgressCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
+        -> URLSessionDownloadTask {
+        
+        var successCallback = request.success
+        var progressCallback = request.progress
+        var failureCallback = request.failure
+        
+        if let succeess = succeess {
+            successCallback = succeess
+        }
+        
+        if let progress = progress {
+            progressCallback = progress
+        }
+        
+        if let failure = failure {
+            failureCallback = failure
+        }
+        
+        let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: request,
+                                                                           completion: successCallback,
+                                                                           progress: progressCallback,
+                                                                           failure: failureCallback)
+        downloadTask.resume()
+        
+        return downloadTask
+    }
+    
+    @discardableResult
+    open func download
+        (URL: String,
+         method: SHMethod,
+         contentType: ContentType = .multipart_form_data,
+         params: [String: AnyObject]? = nil,
+         headers: [String: String]? = nil,
+         completion: DownloadCompletion? = nil,
+         progress: ProgressCallBack? = nil,
+         failure: FailureHTTPCallBack? = nil)
+        -> URLSessionDownloadTask {
+            
+        let request = SHRequest(URL: URL, method: method, params: params, contentType: contentType, headers: headers)
+        let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: request, completion: completion, progress: progress, failure: failure)
+        downloadTask.resume()
+            
+        return downloadTask
+    }
+}
