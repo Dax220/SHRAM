@@ -24,24 +24,6 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
     //MARK: - NSURLSessionDownloadDelegate
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         
-        if let request = downloadTask.callBackHandler?.request {
-            
-            let shResponse = SHResponse(response: downloadTask.response, parseKeys: request.parseKeys)
-            
-            guard let response = downloadTask.response as? HTTPURLResponse else {
-                downloadTask.callBackHandler?.error?(request, nil, shResponse)
-                return
-            }
-            
-            switch response.statusCode {
-            case 200..<400:
-                downloadTask.callBackHandler?.downloadCompletion?(location, shResponse)
-            case 400...500:
-                downloadTask.callBackHandler?.error?(request, nil, shResponse)
-            default:
-                break
-            }
-        }
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
@@ -66,49 +48,13 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
         }
     }
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        
-        if let request = task.callBackHandler?.request {
-            
-            guard let response = task.response as? HTTPURLResponse else {
-                task.callBackHandler?.error?(request, error, nil)
-                return
-            }
-            
-            let shResponse = SHResponse(response: response, parseKeys: request.parseKeys)
-            
-            if task is URLSessionUploadTask {
-                
-                if (error == nil) {
-                    
-                    switch response.statusCode {
-                    case 200..<400:
-                        task.callBackHandler?.uploadCompletion?(shResponse)
-                    case 400...500:
-                        task.callBackHandler?.error?(request, error, shResponse)
-                    default:
-                        break
-                    }
-                    
-                } else {
-                    task.callBackHandler?.error?(request, error, shResponse)
-                }
-                
-            } else if task is URLSessionDownloadTask, let error = error {
-                task.callBackHandler?.error?(request, error, shResponse)
-            }
-        }
-    }
-    
     //MARK: - NSURLSessionTaskDelegate
     func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         
         if let request = task.callBackHandler?.request {
-         
-            let shResponse = SHResponse(response: task.response, parseKeys: request.parseKeys)
             
+            let shResponse = SHResponse(response: task.response, parseKeys: request.parseKeys)
             task.callBackHandler?.progress?(bytesSent, totalBytesSent, totalBytesExpectedToSend, shResponse)
-        
         }
     }
     
@@ -138,17 +84,44 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
             default:
                 break
             }
-        } 
+        }
     }
     
     //MARK: - Upload file task
     func createUploadTaskWithRequest(request: SHRequest,
-                                    completion: UploadCompletion?,
-                                    progress: ProgressCallBack?,
-                                    failure: FailureHTTPCallBack?) -> URLSessionUploadTask {
+                                     completion: UploadCompletion?,
+                                     progress: ProgressCallBack?,
+                                     failure: FailureHTTPCallBack?) -> URLSessionUploadTask {
         
-        let uploadTask = urlSession.uploadTask(withStreamedRequest: request.originalRequest)
+        var callBackHandler: CallBackHandler?
+        
+        let uploadTask = urlSession.uploadTask(with: request.originalRequest, from: nil) { (data, resp, error) in
+            
+            guard let response = resp as? HTTPURLResponse else {
+                callBackHandler?.error?(request, error, nil)
+                return
+            }
+            
+            let shResponse = SHResponse(data: data, response: response, parseKeys: request.parseKeys)
+            
+            if error == nil {
+                
+                switch response.statusCode {
+                case 200..<400:
+                    callBackHandler?.uploadCompletion?(shResponse)
+                case 400...500:
+                    callBackHandler?.error?(request, error, shResponse)
+                default:
+                    break
+                }
+                
+            } else {
+                callBackHandler?.error?(request, error, shResponse)
+            }
+        }
+        
         uploadTask.callBackHandler = CallBackHandler(request: request, progressHandler: progress, uploadCompletionHandler: completion, errorHandler: failure)
+        callBackHandler = uploadTask.callBackHandler
         
         return uploadTask
     }
@@ -159,8 +132,35 @@ class SHDataTaskService: NSObject, URLSessionTaskDelegate, URLSessionDelegate, U
                                        progress: ProgressCallBack?,
                                        failure: FailureHTTPCallBack?) -> URLSessionDownloadTask {
         
-        let downloadTask = urlSession.downloadTask(with: request.originalRequest)
+        
+        var callBackHandler: CallBackHandler?
+        
+        let downloadTask = urlSession.downloadTask(with: request.originalRequest) { (url, resp, err) in
+            
+            let shResponse = SHResponse(response: resp, parseKeys: request.parseKeys)
+            
+            if err != nil {
+                callBackHandler?.error?(request, err, shResponse)
+                return
+            }
+            
+            guard let response = resp as? HTTPURLResponse, let location = url else {
+                callBackHandler?.error?(request, nil, shResponse)
+                return
+            }
+            
+            switch response.statusCode {
+            case 200..<400:
+                callBackHandler?.downloadCompletion?(location, shResponse)
+            case 400...500:
+                callBackHandler?.error?(request, nil, shResponse)
+            default:
+                break
+            }
+        }
+        
         downloadTask.callBackHandler = CallBackHandler(request: request, progressHandler: progress, downloadCompletionHandler: completion, errorHandler: failure)
+        callBackHandler = downloadTask.callBackHandler
         
         return downloadTask
     }
@@ -188,3 +188,4 @@ internal class CallBackHandler: NSObject {
         super.init()
     }
 }
+
