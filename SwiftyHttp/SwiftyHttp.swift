@@ -309,7 +309,7 @@ open class SwiftyHttpManager: NSObject
     @discardableResult
     open func upload
         (request: SHUploadRequest,
-         succeess: UploadCompletion? = nil,
+         success: UploadCompletion? = nil,
          progress: ProgressCallBack? = nil,
          failure: FailureHTTPCallBack? = nil)
         -> URLSessionUploadTask {
@@ -318,8 +318,8 @@ open class SwiftyHttpManager: NSObject
             var progressCallback = request.progress
             var failureCallback = request.failure
             
-            if let succeess = succeess {
-                successCallback = succeess
+            if let success = success {
+                successCallback = success
             }
             
             if let progress = progress {
@@ -362,7 +362,7 @@ open class SwiftyHttpManager: NSObject
     @discardableResult
     open func download
         (request: SHDownloadRequest,
-         succeess: DownloadCompletion? = nil,
+         success: DownloadCompletion? = nil,
          progress: ProgressCallBack? = nil,
          failure: FailureHTTPCallBack? = nil)
         -> URLSessionDownloadTask {
@@ -371,8 +371,8 @@ open class SwiftyHttpManager: NSObject
         var progressCallback = request.progress
         var failureCallback = request.failure
         
-        if let succeess = succeess {
-            successCallback = succeess
+        if let success = success {
+            successCallback = success
         }
         
         if let progress = progress {

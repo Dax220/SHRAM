@@ -14,6 +14,12 @@ open class SHDownloadRequest: SHRequest {
     public var progress: ProgressCallBack?
     public var failure: FailureHTTPCallBack?
     
+    public override init(URL: String, method: SHMethod) {
+        super.init(URL: URL, method: method)
+        
+        contentType = .multipart_form_data
+    }
+    
     @discardableResult
     public func download() -> URLSessionDownloadTask {
         
