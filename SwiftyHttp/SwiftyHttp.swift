@@ -313,7 +313,9 @@ open class SwiftyHttpManager: NSObject
          progress: ProgressCallBack? = nil,
          failure: FailureHTTPCallBack? = nil)
         -> URLSessionUploadTask {
-        
+            
+            request.configureRequest()
+            
             var successCallback = request.success
             var progressCallback = request.progress
             var failureCallback = request.failure
@@ -367,29 +369,31 @@ open class SwiftyHttpManager: NSObject
          failure: FailureHTTPCallBack? = nil)
         -> URLSessionDownloadTask {
         
-        var successCallback = request.success
-        var progressCallback = request.progress
-        var failureCallback = request.failure
-        
-        if let success = success {
-            successCallback = success
-        }
-        
-        if let progress = progress {
-            progressCallback = progress
-        }
-        
-        if let failure = failure {
-            failureCallback = failure
-        }
-        
-        let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: request,
-                                                                           completion: successCallback,
-                                                                           progress: progressCallback,
-                                                                           failure: failureCallback)
-        downloadTask.resume()
-        
-        return downloadTask
+            request.configureRequest()
+            
+            var successCallback = request.success
+            var progressCallback = request.progress
+            var failureCallback = request.failure
+            
+            if let success = success {
+                successCallback = success
+            }
+            
+            if let progress = progress {
+                progressCallback = progress
+            }
+            
+            if let failure = failure {
+                failureCallback = failure
+            }
+            
+            let downloadTask = SHDataTaskManager.createDownloadTaskWithRequest(request: request,
+                                                                               completion: successCallback,
+                                                                               progress: progressCallback,
+                                                                               failure: failureCallback)
+            downloadTask.resume()
+            
+            return downloadTask
     }
     
     @discardableResult
