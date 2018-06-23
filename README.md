@@ -1,20 +1,20 @@
-# **Shram** #
+# **Swifty_HTTP** #
 ## Simple Http Requests ##
 
-Shram - is easy to use but powerful framework for communication with RESTful web services via HTTP requests. Shram will help you send a request to a server in just a few lines of code. The main advantage of this framework is clarity and easy of use.
+Swifty_HTTP - is easy to use but powerful framework for communication with RESTful web services via HTTP requests. Swifty_HTTP will help you send a request to a server in just a few lines of code. The main advantage of this framework is clarity and easy of use.
 
 ## **Supported platforms** ##
 - IOS
 
 ## **How to install** ##
-Using cocoapods you need to write ``` pod ’Shram’, '0.1.1’ ``` in you podfile
+Using cocoapods you need to write ``` pod 'SwiftyHttp' ``` in you podfile
 
 ## **How it works** ##
-As mentioned above Shram is very simple to use. Let's sort it out.
+As mentioned above Swifty_HTTP is very simple to use. Let's sort it out.
 
-You can create object of ShramRequest
+You can create object of SHRequest
 ```
-var request = ShramRequest(URL: "http://www.sample.com/api/method", method: "GET")
+var request = SHRequest(URL: "http://www.sample.com/api/method", method: "GET")
 ```
 Then you can set the following parameters:
 
@@ -39,7 +39,7 @@ let params = [
         "someKey" : "someValue"
     ]
 
-var request = ShramRequest(URL: "http://www.sample.com/api/method", method: "GET")
+var request = SHRequest(URL: "http://www.sample.com/api/method", method: "GET")
 request.parameters = params as [String : AnyObject]?
 req.send(completion: { (req, data, resp) in
             
@@ -56,25 +56,25 @@ req.send(completion: { (req, data, resp) in
 
 **To send simple GET request you need to write the following:**
 ```
-Shram.GET("http://www.sample.com/api/method",
-          completion: { (request, data, response) in
+SwiftyHttp.GET("http://www.sample.com/api/method",
+               completion: { (request, data, response) in
             
      },
-          failure: { (request, error, response) in
+               failure: { (request, error, response) in
      }
 )
 ```
 
 Really easy. But what if we want to pass some parameters or headers? Since Swift allows to set default values for the function parameters you don't need to looking for other methods for it. The full version of GET method looks as follows:
 ```
-Shram.GET("http://www.sample.com/api/method",
-          params: params,
-          headers: headers,
-          withParseKeys: ["firstKey", "secondKey", ...],
-          completion: { (request, data, response) in
+SwiftyHttp.GET("http://www.sample.com/api/method",
+               params: params,
+               headers: headers,
+               withParseKeys: ["firstKey", "secondKey", ...],
+               completion: { (request, data, response) in
      
      },
-          failure: { (request, error, response) in
+               failure: { (request, error, response) in
      
      }
 )
@@ -113,25 +113,25 @@ As you can see "params", "headers", "withParseKeys" are optional and you don't n
 Method POST is similar. There are short and full versions:
 
 ```
-Shram.POST("http://www.sample.com/api/method",
-           contentType: contentType,
-           completion: { (request, data, response) in
+SwiftyHttp.POST("http://www.sample.com/api/method",
+                contentType: contentType,
+                completion: { (request, data, response) in
                     
      },
-           failure: { (request, error, response) in
+                failure: { (request, error, response) in
             
      }
 )
 
-Shram.POST("http://www.sample.com/api/method",
-           params: params,
-           contentType: contentType,
-           headers: headers,
-           withParseKeys: ["firstKey", "secondKey", ...],
-           completion: { (request, data, response) in
+SwiftyHttp.POST("http://www.sample.com/api/method",
+                params: params,
+                contentType: contentType,
+                headers: headers,
+                withParseKeys: ["firstKey", "secondKey", ...],
+                completion: { (request, data, response) in
      
      },
-           failure: { (request, error, response) in
+                failure: { (request, error, response) in
      
      }
 )
@@ -147,47 +147,47 @@ In this method you can see new parameter:
 ###**Method PUT**###
 
 ```
-Shram.PUT(http://www.sample.com/api/method,
-          params: params,
-          contentType: contentType,
-          completion: { (request, data, response) in
+SwiftyHttp.PUT("http://www.sample.com/api/method",
+               params: params,
+               contentType: contentType,
+               completion: { (request, data, response) in
                     
      },
-          failure: { (request, error, response) in
+               failure: { (request, error, response) in
      }
 )
 
-Shram.PUT(http://www.sample.com/api/method,
-          params: params,
-          contentType: contentType,
-          headers: headers,
-          withParseKeys: ["firstKey", "secondKey", ...],
-          completion: { (request, data, response) in
+SwiftyHttp.PUT("http://www.sample.com/api/method",
+               params: params,
+               contentType: contentType,
+               headers: headers,
+               withParseKeys: ["firstKey", "secondKey", ...],
+               completion: { (request, data, response) in
                     
     },
-         failure: {(request, error, response) in
+               failure: {(request, error, response) in
     }
 )
 ```
 
 ###**Method DELETE**###
 ```
-Shram.DELETE("http://www.sample.com/api/method",
-             completion: { (request, data, response) in
+SwiftyHttp.DELETE("http://www.sample.com/api/method",
+                  completion: { (request, data, response) in
                         
      },
-             failure: { (request, error, response) in
+                  failure: { (request, error, response) in
      }
 )
 
-Shram.DELETE("http://www.sample.com/api/method",
-             params: params,
-             headers: headers,
-             withParseKeys: ["firstKey", "secondKey", ...],
-             completion: { (request, data, response) in
+SwiftyHttp.DELETE("http://www.sample.com/api/method",
+                  params: params,
+                  headers: headers,
+                  withParseKeys: ["firstKey", "secondKey", ...],
+                  completion: { (request, data, response) in
                         
      },
-             failure: { (request, error, response) in
+                  failure: { (request, error, response) in
      }
 )
 ```
